@@ -1,29 +1,29 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SignUp from './screens/SignUp';
+import SignIn from './screens/SignIn';
+import { RootStackParamList } from './types';
+import { StyleSheet } from 'react-native';
 
+const Stack= createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
-  console.log("hello")
-  console.log("yeni deneme")
+ 
   return (
-    <View style={{flex:1,backgroundColor:"orange",justifyContent:"center",alignItems:"center"}}>
-      <Text style={{fontSize:35,fontWeight:"bold"}}>
-        hello
-      </Text>
-      
-    </View>
+    <NavigationContainer >
+      <Stack.Navigator  initialRouteName='SignIn'>
+        <Stack.Screen name="SignUp" component={SignUp} options={{title:"HAKKIMIZDA"}} />
+        <Stack.Screen name="SignIn" component={SignIn} options={{title:"HOME"}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
  
   );
 }
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    flex:1
   },
   sectionTitle: {
     fontSize: 24,
