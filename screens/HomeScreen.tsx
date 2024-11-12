@@ -1,22 +1,23 @@
 import React from "react";
-import {View,Text,Button, StyleSheet} from 'react-native';
+import {View,Text,StyleSheet,Button} from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
 
-type SignUpScreenNavigationProps= NativeStackNavigationProp<RootStackParamList,'SignUp'>;
 
-const SignUp=()=>{
-    const navigation=useNavigation<SignUpScreenNavigationProps>();
+type HomeScreenScreenNavigationProps= NativeStackNavigationProp<RootStackParamList,'HomeScreen'>;
+
+const HomeScreen=()=>{
+    const navigation=useNavigation<HomeScreenScreenNavigationProps>();
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Sign Up Screen</Text>
-            <Button title="Go to Sign In" onPress={()=>navigation.navigate('SignIn')}/>
-            <Button title="Go to HomeScreen" onPress={()=>navigation.navigate('HomeScreen')}/>
+            <Text style={styles.title}>Home Screen</Text>
+            {/*  <Button title="Go to Sign In" onPress={()=>navigation.navigate('SignIn')}/> */ }
         </View>
     )
 }
+
 
 const styles=StyleSheet.create({
     container: {
@@ -31,4 +32,6 @@ const styles=StyleSheet.create({
         marginBottom: 20,
       },
 })
-export default SignUp;
+
+
+export default HomeScreen;

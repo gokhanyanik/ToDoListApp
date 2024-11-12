@@ -13,6 +13,8 @@ const SignIn=()=>{
         <View style={styles.container}>
             <Text style={styles.title}>Sign In Screen</Text>
             <Button title="Go to Sign Up" onPress={()=>navigation.navigate('SignUp')}/>
+            <Button title="Go to HomeScreen" onPress={()=>navigation.navigate('HomeScreen')}/>
+
         </View>
     )
 }
