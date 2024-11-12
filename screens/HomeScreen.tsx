@@ -13,6 +13,7 @@ const HomeScreen = () => {
             <Text style={styles.title}>Home Screen</Text>
             <Button title="Go to AddTodo" onPress={() => navigation.navigate('AddTodo')} />
             <Button title="Go to DetailTodo" onPress={() => navigation.navigate('DetailTodo')} />
+            <Button title="Go to EditTodo" onPress={() => navigation.navigate('EditTodo')} />
         </View>
     )
 }

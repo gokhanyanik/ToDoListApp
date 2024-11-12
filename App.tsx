@@ -8,6 +8,7 @@ import { RootStackParamList } from './types';
 import { StyleSheet } from 'react-native';
 import AddTodo from './screens/AddTodo';
 import DetailTodo from './screens/DetailTodo';
+import EditTodo from './screens/EditTodo';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,6 +22,8 @@ function App(): React.JSX.Element {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="AddTodo" component={AddTodo} />
         <Stack.Screen name="DetailTodo" component={DetailTodo} />
+        <Stack.Screen name="EditTodo" component={EditTodo} />
+
       </Stack.Navigator>
     </NavigationContainer>
 

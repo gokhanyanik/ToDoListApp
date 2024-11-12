@@ -12,7 +12,6 @@ const AddTodo = () => {
         <View style={styles.container}>
             <Text style={styles.title}>AddTodo</Text>
             <Button title="Go to HomeScreen" onPress={() => navigation.navigate('HomeScreen')} />
-
         </View>
     )
 }
