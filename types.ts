@@ -3,4 +3,5 @@ export type RootStackParamList = {
     SignIn: undefined;
     HomeScreen: undefined;
     AddTodo:undefined;
+    DetailTodo:undefined;
   };
