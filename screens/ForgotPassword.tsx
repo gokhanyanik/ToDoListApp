@@ -4,15 +4,15 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types';
 
-type ProfilScreenScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'ProfilScreen'>;
+type ForgotPasswordScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'ForgotPassword'>;
 
-const ProfilScreen = () => {
-    const navigation = useNavigation<ProfilScreenScreenNavigationProps>();
+const ForgotPassword = () => {
+    const navigation = useNavigation<ForgotPasswordScreenNavigationProps>()
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Profil Screen</Text>
-            <Button title="Go to Home Screen" onPress={() => navigation.navigate('HomeScreen')} />
-            <Button title="Go to ForgotPassword" onPress={() => navigation.navigate('ForgotPassword')} />
+            <Text style={styles.title}>ForgotPassword</Text>
+            <Button title="Go to HomeScreen" onPress={() => navigation.navigate('HomeScreen')} />
+            <Button title="Go to ProfilScreen" onPress={() => navigation.navigate('ProfilScreen')} />
         </View>
     )
 }
@@ -31,4 +31,5 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ProfilScreen;
+
+export default ForgotPassword;

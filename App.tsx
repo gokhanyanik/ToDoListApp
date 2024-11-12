@@ -10,6 +10,7 @@ import AddTodo from './screens/AddTodo';
 import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
 import ProfilScreen from './screens/ProfilScreen';
+import ForgotPassword from './screens/ForgotPassword';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -25,6 +26,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="DetailTodo" component={DetailTodo} />
         <Stack.Screen name="EditTodo" component={EditTodo} />
         <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
       </Stack.Navigator>
     </NavigationContainer>
