@@ -6,6 +6,7 @@ import SignIn from './screens/SignIn';
 import HomeScreen from './screens/HomeScreen';
 import { RootStackParamList } from './types';
 import { StyleSheet } from 'react-native';
+import AddTodo from './screens/AddTodo';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,6 +18,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="AddTodo" component={AddTodo} />
       </Stack.Navigator>
     </NavigationContainer>
 

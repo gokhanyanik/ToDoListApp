@@ -4,20 +4,19 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
 
+type AddTodoScreenNavigationProps=NativeStackNavigationProp<RootStackParamList,'AddTodo'>;
 
-type HomeScreenScreenNavigationProps= NativeStackNavigationProp<RootStackParamList,'HomeScreen'>;
-
-const HomeScreen=()=>{
-    const navigation=useNavigation<HomeScreenScreenNavigationProps>();
+const AddTodo=()=>{
+    const navigation=useNavigation<AddTodoScreenNavigationProps>();
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Home Screen</Text>
-           <Button title="Go to AddTodo" onPress={()=>navigation.navigate('AddTodo')}/> 
+            <Text style={styles.title}>AddTodo</Text>
+           <Button title="Go to HomeScreen" onPress={()=>navigation.navigate('HomeScreen')}/> 
+
         </View>
     )
 }
-
 
 const styles=StyleSheet.create({
     container: {
@@ -34,4 +33,4 @@ const styles=StyleSheet.create({
 })
 
 
-export default HomeScreen;
+export default AddTodo;
