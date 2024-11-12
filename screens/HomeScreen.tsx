@@ -14,6 +14,7 @@ const HomeScreen = () => {
             <Button title="Go to AddTodo" onPress={() => navigation.navigate('AddTodo')} />
             <Button title="Go to DetailTodo" onPress={() => navigation.navigate('DetailTodo')} />
             <Button title="Go to EditTodo" onPress={() => navigation.navigate('EditTodo')} />
+            <Button title="Go to ProfilScreen" onPress={() => navigation.navigate('ProfilScreen')} />
         </View>
     )
 }

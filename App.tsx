@@ -9,6 +9,7 @@ import { StyleSheet } from 'react-native';
 import AddTodo from './screens/AddTodo';
 import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
+import ProfilScreen from './screens/ProfilScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="AddTodo" component={AddTodo} />
         <Stack.Screen name="DetailTodo" component={DetailTodo} />
         <Stack.Screen name="EditTodo" component={EditTodo} />
+        <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

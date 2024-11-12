@@ -5,4 +5,5 @@ export type RootStackParamList = {
     AddTodo:undefined;
     DetailTodo:undefined;
     EditTodo:undefined;
+    ProfilScreen:undefined;
   };
