@@ -18,7 +18,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='SignIn'>
+      <Stack.Navigator initialRouteName='AddTodo'>
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
