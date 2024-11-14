@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity,Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
@@ -20,13 +20,13 @@ const SignIn = () => {
     };
     return (
         <View style={{ flex: 1 }}>
-            <View style={{justifyContent:"flex-start",alignItems:"center",margin:50}}>
-            <Image
-            source={require('../assets/images/todolistSignIn.png')}
-            style={styles.image}
-            />
+            <View style={{ justifyContent: "flex-start", alignItems: "center", margin: 50 }}>
+                <Image
+                    source={require('../assets/images/todolistSignIn.png')}
+                    style={styles.image}
+                />
             </View>
-            
+
             <View style={styles.container}>
                 <TextInput
                     style={styles.input}
@@ -53,8 +53,8 @@ const SignIn = () => {
                     </TouchableOpacity>
 
                 </View>
-                <View style={{ width: '100%', alignItems: "flex-end", right: 10,margin:15}}>
-                    <TouchableOpacity  onPress={() => navigation.navigate("ForgotPassword")}>
+                <View style={{ width: '100%', alignItems: "flex-end", right: 10, margin: 15 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
                         <Text>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
     },
-    image:{
+    image: {
         width: 200,
         height: 200,
-        resizeMode:"contain"
+        resizeMode: "contain"
     },
     title: {
         fontSize: 24,
