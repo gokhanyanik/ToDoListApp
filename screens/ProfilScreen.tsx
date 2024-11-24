@@ -10,9 +10,18 @@ const ProfilScreen = () => {
     const navigation = useNavigation<ProfilScreenScreenNavigationProps>();
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Profil Screen</Text>
-            <Button title="Go to Home Screen" onPress={() => navigation.navigate('HomeScreen')} />
-            <Button title="Go to ForgotPassword" onPress={() => navigation.navigate('ForgotPassword')} />
+           <View style={{backgroundColor:"red",height:30,width:"100%",top:0}}>
+            <Text>asf</Text>
+           </View>
+           <View style={{backgroundColor:"blue",height:300,width:"100%",top:70}}>
+           <Text>asf</Text>
+           </View>
+           <View style={{backgroundColor:"orange",height:130,width:"100%",top:120}}>
+           <Text>asf</Text>
+           </View>
+           <View style={{backgroundColor:"black",height:40,width:"100%",top:160}}>
+           <Text>asf</Text>
+           </View>
         </View>
     )
 }
@@ -20,9 +29,9 @@ const ProfilScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#FFFFFF',
     },
     title: {
         fontSize: 24,
