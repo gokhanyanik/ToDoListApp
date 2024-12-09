@@ -11,7 +11,7 @@ const HomeScreen = () => {
    
     return (
         <View style={styles.container}>
-            <View style={{ flexDirection: "row", width: "100%", height: 40, backgroundColor: "white", justifyContent: "space-between", margin: 15 }}>
+            <View style={{ flexDirection: "row", width: "95%", height: 40, backgroundColor: "white", justifyContent: "space-between", margin: 15 }}>
                 <TouchableOpacity style={{ backgroundColor: "white" }} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
                         source={require('../assets/images/todolistProfilScreen.png')}
@@ -25,7 +25,7 @@ const HomeScreen = () => {
                     />
                 </TouchableOpacity>
             </View>
-            <View style={{ flexDirection: "row", width: "100%", height: 40, backgroundColor: "white", justifyContent: "space-between", margin: 10 }}>
+            <View style={{ flexDirection: "row", width: "95%", height: 40, backgroundColor: "white", justifyContent: "space-between", margin: 10 }}>
                 <TouchableOpacity style={{ backgroundColor: "white" ,justifyContent:"flex-start"}} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
                         source={require('../assets/images/todo.png')}
