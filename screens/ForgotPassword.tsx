@@ -60,7 +60,7 @@ const ForgotPassword = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignUp')}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn')}>
                     <Text style={{ color: "white" }}>CHANGE PASSWORD</Text>
                 </TouchableOpacity>
             </View>

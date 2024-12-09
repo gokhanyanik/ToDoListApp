@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button ,Image} from 'react-native';
+import { View, Text, StyleSheet, Button ,Image, TouchableOpacity} from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types';
@@ -13,15 +13,21 @@ const DetailTodo = ( ) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.container}>
-                <View style={{ backgroundColor: "#FFFFFF", flex: 1 ,justifyContent:"center"}}>
+                <TouchableOpacity 
+                style={{ backgroundColor: "#FFFFFF", width:30 ,justifyContent:"center"}}
+                onPress={()=>navigation.navigate('HomeScreen')}
+                >
                     <Image
                     source={require('../assets/images/solok.png')}
                     style={{margin:20}}
                     
                     />
-                </View>
-                <View style={{ backgroundColor: "#FFFFFF", width: 300, }}>
-                    <View style={{ backgroundColor: "#FFFFFF", flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
+                </TouchableOpacity>
+                <View style={{ backgroundColor: "#FFFFFF", width: 360, }}>
+                    <TouchableOpacity 
+                    style={{ backgroundColor: "#FFFFFF", width:360,height:50, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}
+                    onPress={()=>navigation.navigate('EditTodo')}
+                    >
                     <Image
                     source={require('../assets/images/saat.png')}
                     style={{margin:5,height:24,width:24}}
@@ -34,7 +40,7 @@ const DetailTodo = ( ) => {
                     source={require('../assets/images/copkutusu.png')}
                     style={{margin:5,height:24,width:24}}
                     />
-                    </View>
+                    </TouchableOpacity>
                 </View>
 
             </View>

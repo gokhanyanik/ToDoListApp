@@ -44,7 +44,7 @@ const ProfilScreen = () => {
                     <Text style={{ fontSize: 22, color: "#F79E89" }}>Change Password </Text>
                 </View>
             </View>
-            <TouchableOpacity style={[styles.logoutClick, { top: 120 }]} onPress={() => console.log("Log Out a basıldı")}>
+            <TouchableOpacity style={[styles.logoutClick, { top: 120 }]} onPress={() => navigation.navigate('SignIn')}>
                 <Text style={{ color: "white", fontSize: 20 }}>LOG OUT</Text>
             </TouchableOpacity>
         </View>
