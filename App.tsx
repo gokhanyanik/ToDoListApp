@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootStackParamList, Todo } from './types';
+import { StyleSheet } from 'react-native';
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import HomeScreen from './screens/HomeScreen';
-import { RootStackParamList } from './types';
-import { StyleSheet } from 'react-native';
 import AddTodo from './screens/AddTodo';
 import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
@@ -16,13 +16,21 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
 
+  const [todos, setTodos] = useState<Todo[]>([]);
+
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='SignIn'>
+      <Stack.Navigator initialRouteName='AddTodo'>
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="AddTodo" component={AddTodo} />
+        <Stack.Screen name="HomeScreen" >
+          {(props) => <HomeScreen setTodos={function (value: React.SetStateAction<Todo[]>): void {
+            throw new Error('Function not implemented.');
+          } } {...props} todos={todos} />}
+        </Stack.Screen>
+        <Stack.Screen name="AddTodo">
+          {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}
+        </Stack.Screen>
         <Stack.Screen name="DetailTodo" component={DetailTodo} />
         <Stack.Screen name="EditTodo" component={EditTodo} />
         <Stack.Screen name="ProfilScreen" component={ProfilScreen} />

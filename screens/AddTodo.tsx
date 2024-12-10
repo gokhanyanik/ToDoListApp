@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList,Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
-type AddTodoScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>;
+//type AddTodoScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>;
+type AddTodoProps={
+    todos:Todo[];
+    setTodos:React.Dispatch<React.SetStateAction<Todo[]>>;
+};
 
-const AddTodo = () => {
-    const navigation = useNavigation<AddTodoScreenNavigationProps>();
+const AddTodo:React.FC<AddTodoProps> = ({todos,setTodos}) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const [titleTodo, setTitleTodo] = useState('')
+    const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
     /*deadline için tanımlanan stateler */
@@ -23,14 +27,21 @@ const AddTodo = () => {
         setShowPicker(false);  // Picker'ı kapat
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
+
+    const handleAddTodo=()=>{
+        const newTodo:Todo={title,description,deadline:new Date(),id:Date.now()};
+        setTodos([...todos,newTodo]);
+        navigation.navigate('HomeScreen',{todos})
+
+    }
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.titleInput}
                 placeholder="Title"
                 placeholderTextColor="white"
-                value={titleTodo}
-                onChangeText={setTitleTodo}
+                value={title}
+                onChangeText={setTitle}
             />
             <TextInput
                 style={styles.descriptionInput}
@@ -68,7 +79,7 @@ const AddTodo = () => {
                     />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.addTodoClick} onPress={() => navigation.navigate('HomeScreen')}>
+            <TouchableOpacity style={styles.addTodoClick} onPress={handleAddTodo}>
                 <Text style={{ color: "#FF8A80", fontSize: 20 }}>ADD TO DO</Text>
             </TouchableOpacity>
         </View>
@@ -143,3 +154,7 @@ const styles = StyleSheet.create({
 
 
 export default AddTodo;
+
+function setTodos(arg0: any[]) {
+    throw new Error("Function not implemented.");
+}
