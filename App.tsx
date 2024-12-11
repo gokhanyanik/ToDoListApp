@@ -24,9 +24,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="HomeScreen" >
-          {(props) => <HomeScreen setTodos={function (value: React.SetStateAction<Todo[]>): void {
-            throw new Error('Function not implemented.');
-          } } {...props} todos={todos} />}
+        {(props) => <HomeScreen {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="AddTodo">
           {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}

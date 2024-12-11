@@ -50,7 +50,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos }) => {
                 data={todos}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View style={{ height: 600, width: 370 }}>
+                    <View style={{ height: 180, width: 370 }}>
                         <TouchableOpacity
                             style={{ backgroundColor: "#F76C6A", height: 150, width: "90%", margin: 10, borderRadius: 20, top: 10 }}
                             onPress={() => navigation.navigate('DetailTodo', { todo: item })}
@@ -59,19 +59,18 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos }) => {
                             <Text style={{ margin: 10, color: "white" }}>{item.description}</Text>
                             <Text style={{ margin: 10, color: "white", top: 35 }}>{item.deadline.toDateString()}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{ backgroundColor: "white", height: 60, width: "100%", margin: 50, alignItems: "flex-end" }}
-                            onPress={() => navigation.navigate('AddTodo', { todos, setTodos })}
-                        >
-                            <Image
-                                source={require('../assets/images/ekle.png')}
-                                style={{ width: 60, height: 60, margin: 60,top:180 }}
-                            />
-                        </TouchableOpacity>
                     </View>
-
-                )} />
-
+                )}
+            />
+            <TouchableOpacity
+                style={{ backgroundColor: "white", height: 60, width: 70, left: 130, margin: 10 }}
+                onPress={() => navigation.navigate('AddTodo', { todos, setTodos })}
+            >
+                <Image
+                    source={require('../assets/images/ekle.png')}
+                    style={{ width: 70, height: 60 }}
+                />
+            </TouchableOpacity>
 
         </View>
     )
