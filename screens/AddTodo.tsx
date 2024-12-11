@@ -31,7 +31,7 @@ const AddTodo:React.FC<AddTodoProps> = ({todos,setTodos}) => {
     const handleAddTodo=()=>{
         const newTodo:Todo={title,description,deadline:new Date(),id:Date.now()};
         setTodos([...todos,newTodo]);
-        navigation.navigate('HomeScreen',{todos})
+        navigation.navigate('HomeScreen',{todos,setTodos})
 
     }
     return (

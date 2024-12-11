@@ -5,9 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 
 //type HomeScreenScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;
+
+//HomeScreen için özel tanımlanan tipi ifade eder ve içerisinde Todo tipini de barındırır.
 type HomeScreenProps = {
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+    todos: Todo[];  // Burada todosun tipini tanımladık.
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
 };
 const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -53,7 +55,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos }) => {
                     <View style={{ height: 180, width: 370 }}>
                         <TouchableOpacity
                             style={{ backgroundColor: "#F76C6A", height: 150, width: "90%", margin: 10, borderRadius: 20, top: 10 }}
-                            onPress={() => navigation.navigate('DetailTodo', { todo: item })}
+                            onPress={() => navigation.navigate('DetailTodo', { todos ,setTodos })}
                         >
                             <Text style={{ margin: 10, color: "white", fontSize: 17, fontWeight: "bold" }}>{item.title}</Text>
                             <Text style={{ margin: 10, color: "white" }}>{item.description}</Text>

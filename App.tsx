@@ -20,7 +20,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName='AddTodo'>
+      <Stack.Navigator initialRouteName='SignIn'>
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="HomeScreen" >
@@ -29,8 +29,12 @@ function App(): React.JSX.Element {
         <Stack.Screen name="AddTodo">
           {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
-        <Stack.Screen name="DetailTodo" component={DetailTodo} />
-        <Stack.Screen name="EditTodo" component={EditTodo} />
+        <Stack.Screen name="DetailTodo" >
+        {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos} />}
+        </Stack.Screen>
+        <Stack.Screen name="EditTodo" >
+        {(props) => <EditTodo {...props} todos={todos} setTodos={setTodos} />}
+        </Stack.Screen>
         <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 

@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList ,Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
-type EditTodoScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>;
-
-const EditTodo = () => {
-    const navigation = useNavigation<EditTodoScreenNavigationProps>();
+//type EditTodoScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>;
+type EditTodoProps = {
+    todos: Todo[];  // Burada todosun tipini tanımladık.
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
+};
+const EditTodo:React.FC<EditTodoProps> = ({todos,setTodos}) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [titleTodo, setTitleTodo] = useState('')
     const [description, setDescription] = useState('')
@@ -68,7 +71,7 @@ const EditTodo = () => {
                     />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.addTodoClick} onPress={() => navigation.navigate('HomeScreen')}>
+            <TouchableOpacity style={styles.addTodoClick} onPress={() => navigation.navigate('HomeScreen' ,{todos,setTodos})}>
                 <Text style={{ color: "#FF8A80", fontSize: 20 }}>EDİT TO DO</Text>
             </TouchableOpacity>
         </View>
