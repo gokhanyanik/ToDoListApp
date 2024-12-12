@@ -1,38 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList,Todo } from "../types";
+import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 //type AddTodoScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>;
-type AddTodoProps={
-    todos:Todo[];
-    setTodos:React.Dispatch<React.SetStateAction<Todo[]>>;
+type AddTodoProps = {
+    todos: Todo[];
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 };
 
-const AddTodo:React.FC<AddTodoProps> = ({todos,setTodos}) => {
+const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
     /*deadline için tanımlanan stateler */
-    const [deadline, setDeadline] = useState(new Date());  // Başlangıç olarak bugünün tarihini veriyoruz.
+    const [deadline, setDeadline] = useState<Date>(new Date());  // Başlangıç olarak bugünün tarihini veriyoruz.
     const [showPicker, setShowPicker] = useState(false);  //tarih seçici açık/kapalı state ini başlangıçta kapalı yapıyoruz.
     //Tarih seçildiğinde çağırılacak fonksiyon...
     const onChange = (event: any, selectedDate?: Date): void => {
-        const currentDate = selectedDate || deadline;
+        const currentDate = selectedDate instanceof Date ? selectedDate : deadline instanceof Date ? deadline : new Date();
         setShowPicker(false);  // Picker'ı kapat
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
 
-    const handleAddTodo=()=>{
-        const newTodo:Todo={title,description,deadline:new Date(),id:Date.now()};
-        setTodos([...todos,newTodo]);
-        navigation.navigate('HomeScreen',{todos,setTodos})
-
+    const handleAddTodo = () => {
+        const newTodo: Todo = { title, description, deadline: deadline, id: Date.now() };
+        setTodos([...todos, newTodo]);
+        navigation.navigate('HomeScreen', { todos, setTodos })
     }
     return (
         <View style={styles.container}>
@@ -68,7 +67,6 @@ const AddTodo:React.FC<AddTodoProps> = ({todos,setTodos}) => {
                         onChange={onChange} // tarih seçildiğinde çağırılacak fonksiyon
                     />
                 )}
-
             </View>
             <View style={styles.deadlineView}>
                 <Text style={{ right: 60, fontSize: 18, color: "white" }}>Add Image(Optional)</Text>
@@ -151,7 +149,6 @@ const styles = StyleSheet.create({
         left: 90
     }
 })
-
 
 export default AddTodo;
 

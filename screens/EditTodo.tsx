@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList ,Todo } from "../types";
+import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
@@ -11,10 +11,10 @@ type EditTodoProps = {
     todos: Todo[];  // Burada todosun tipini tanımladık.
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
 };
-const EditTodo:React.FC<EditTodoProps> = ({todos,setTodos}) => {
+const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const [titleTodo, setTitleTodo] = useState('')
+    const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
     /*deadline için tanımlanan stateler */
@@ -26,14 +26,22 @@ const EditTodo:React.FC<EditTodoProps> = ({todos,setTodos}) => {
         setShowPicker(false);  // Picker'ı kapat
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
+
+    const handleEditTodo = ():void => {
+        
+        const newTodo: Todo = { title , description, deadline: new Date(), id: Date.now() };
+        setTodos([...todos, newTodo]);
+        navigation.navigate('HomeScreen',{todos , setTodos});
+        
+    };
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.titleInput}
                 placeholder="Title"
                 placeholderTextColor="white"
-                value={titleTodo}
-                onChangeText={setTitleTodo}
+                value={title}
+                onChangeText={setTitle}
             />
             <TextInput
                 style={styles.descriptionInput}
@@ -44,7 +52,7 @@ const EditTodo:React.FC<EditTodoProps> = ({todos,setTodos}) => {
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
-                <Text style={{  fontSize: 18, color: "white" }}> {deadline.toString()}</Text>
+                <Text style={{ fontSize: 18, color: "white" }}> {deadline.toString()}</Text>
                 {/*Deadline seçimi butonu */}
                 <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
                     <Image
@@ -71,7 +79,7 @@ const EditTodo:React.FC<EditTodoProps> = ({todos,setTodos}) => {
                     />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.addTodoClick} onPress={() => navigation.navigate('HomeScreen' ,{todos,setTodos})}>
+            <TouchableOpacity style={styles.addTodoClick} onPress={handleEditTodo}>
                 <Text style={{ color: "#FF8A80", fontSize: 20 }}>EDİT TO DO</Text>
             </TouchableOpacity>
         </View>
