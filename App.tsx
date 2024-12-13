@@ -21,19 +21,23 @@ function App(): React.JSX.Element {
   return (
     <NavigationContainer >
       <Stack.Navigator initialRouteName='SignIn'>
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignIn" >
+          {(props) => < SignIn {...props} todos={todos} setTodos={setTodos} />}
+        </Stack.Screen>
+        <Stack.Screen name="SignUp" >
+          {(props) => < SignUp {...props} todos={todos} setTodos={setTodos} />}
+        </Stack.Screen>
         <Stack.Screen name="HomeScreen" >
-        {(props) => <HomeScreen {...props} todos={todos} setTodos={setTodos} />}
+          {(props) => <HomeScreen {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="AddTodo">
           {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="DetailTodo" >
-        {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos} />}
+          {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="EditTodo" >
-        {(props) => <EditTodo {...props} todos={todos} setTodos={setTodos} />}
+          {(props) => <EditTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

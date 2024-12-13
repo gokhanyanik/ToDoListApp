@@ -27,32 +27,32 @@ const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
 
-    const handleEditTodo = ():void => {
-        
-        const newTodo: Todo = { title , description, deadline: new Date(), id: Date.now() };
+    const handleEditTodo = (): void => {
+
+        const newTodo: Todo = { title, description, deadline: new Date(), id: Date.now() };
         setTodos([...todos, newTodo]);
         navigation.goBack();
-        
+
     };
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.titleInput}
-                placeholder="Title"
+                placeholder={` ${todos.length > 0 ? todos[0].title : "No todos"}`} // İlk todo'nun başlığı gösterilir.
                 placeholderTextColor="white"
                 value={title}
                 onChangeText={setTitle}
             />
             <TextInput
                 style={styles.descriptionInput}
-                placeholder="Description"
+                placeholder={` ${todos.length > 0 ? todos[0].description : "No todos"}`}
                 placeholderTextColor="white"
                 value={description}
                 onChangeText={setDescription}
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
-                <Text style={{ fontSize: 18, color: "white" }}> {deadline.toString()}</Text>
+                <Text style={{ fontSize: 18, color: "white" }}>  {deadline.toLocaleDateString("tr-TR")} {/* Örneğin, MM/DD/YYYY formatı */}</Text>
                 {/*Deadline seçimi butonu */}
                 <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
                     <Image
@@ -71,9 +71,9 @@ const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
 
             </View>
             <View style={styles.deadlineView}>
-                <Text style={{ right: 60, fontSize: 18, color: "white" }}>Add Image(Optional)</Text>
+                <Text style={{ fontSize: 18, color: "white" }}>Add Image(Optional)</Text>
                 {/*Image seçimi butonu */}
-                <TouchableOpacity style={[styles.buttonDeadline, { left: 80 }]} onPress={() => console.log("image eklenicek")}>
+                <TouchableOpacity style={styles.buttonDeadline} onPress={() => console.log("image eklenicek")}>
                     <Image
                         source={require('../assets/images/image.png')}
                     />
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     },
     deadlineView: {
         flexDirection: "row",
-        justifyContent: 'center',
+        justifyContent: "space-between",
         alignItems: 'center',
         backgroundColor: '#FF8A80',
         width: 375,
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         //   backgroundColor: '#4caf50',
         borderRadius: 10,
         margin: 5,
-        left: 90
+        // left: 90
     }
 })
 

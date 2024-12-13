@@ -6,8 +6,8 @@ export type Todo = {
 };
 
 export type RootStackParamList = {
-  SignUp: undefined;
-  SignIn: undefined;
+  SignUp: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
+  SignIn: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
   HomeScreen: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
   AddTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
   DetailTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };

@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-type SignUpScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'SignUp'>;
+type SignUpProps = {
+    todos: Todo[];
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+};
 
-const SignUp = () => {
-    const navigation = useNavigation<SignUpScreenNavigationProps>();
+const SignUp: React.FC<SignUpProps> = ({ todos, setTodos })=> {
+   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -75,12 +78,12 @@ const SignUp = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn')}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn',{todos,setTodos})}>
                     <Text style={{ color: "white" }}>SIGN UP</Text>
                 </TouchableOpacity>
                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
                     <Text>Have an account? </Text>
-                    <TouchableOpacity style={{ width: 90, height: 50 }} onPress={() => navigation.navigate('SignIn')}>
+                    <TouchableOpacity style={{ width: 90, height: 50 }} onPress={() => navigation.navigate('SignIn',{todos,setTodos})}>
                         <Text style={{ color: "#FF8A80" }}>LOG IN</Text>
                     </TouchableOpacity>
                 </View>

@@ -55,7 +55,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos }) => {
                     <View style={{ height: 180, width: 370 }}>
                         <TouchableOpacity
                             style={{ backgroundColor: "#F76C6A", height: 150, width: "90%", margin: 10, borderRadius: 20, top: 10 }}
-                            onPress={() => navigation.navigate('DetailTodo', { todos ,setTodos })}
+                            onPress={() => navigation.navigate('DetailTodo', { todos, setTodos })}
                         >
                             <Text style={{ margin: 10, color: "white", fontSize: 17, fontWeight: "bold" }}>{item.title}</Text>
                             <Text style={{ margin: 10, color: "white" }}>{item.description}</Text>

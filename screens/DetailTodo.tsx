@@ -52,9 +52,9 @@ const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
                 </View>
 
             </View>
-            <View style={{ backgroundColor: "#FFFFFF", height: 100, justifyContent: "center", }}>
+            <View style={{ backgroundColor: "#FFFFFF", flex: 1, justifyContent: "flex-start", }}>
                 {todoTitle ? ( // Eğer todo varsa başlığı görüntüle
-                    <Text style={{ margin: 20 }}>{todoTitle.title}</Text>
+                    <Text style={{ margin: 20, fontSize: 25, fontWeight: "bold" }}>{todoTitle.title}</Text>
                 ) : ( // Eğer todo yoksa bir mesaj göster
                     <Text style={{ margin: 20 }}>Henüz bir todo yok</Text>
                 )}
