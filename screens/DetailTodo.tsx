@@ -10,8 +10,12 @@ type DetailTodoProps = {
     todos: Todo[];  // Burada todosun tipini tanımladık.
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
 };
-const DetailTodo: React.FC<DetailTodoProps> = ({todos, setTodos}) => {
+const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
+    // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
+    const todoTitle = todos.length > 0 ? todos[0] : null; // Dizinin boş olup olmadığını kontrol et.
+    const todoDescription = todos.length > 0 ? todos[0] : null; // Dizinin boş olup olmadığını kontrol et.
 
 
     return (
@@ -49,10 +53,18 @@ const DetailTodo: React.FC<DetailTodoProps> = ({todos, setTodos}) => {
 
             </View>
             <View style={{ backgroundColor: "#FFFFFF", height: 100, justifyContent: "center", }}>
-                <Text style={{ margin: 20 }}>TİTLETODO</Text>
-            </View>
-            <View style={{ backgroundColor: "#FFFFFF", flex: 1, justifyContent: "flex-start", }}>
-                <Text style={{ margin: 20 }}>TODO LİST AÇIKLAMASI</Text>
+                {todoTitle ? ( // Eğer todo varsa başlığı görüntüle
+                    <Text style={{ margin: 20 }}>{todoTitle.title}</Text>
+                ) : ( // Eğer todo yoksa bir mesaj göster
+                    <Text style={{ margin: 20 }}>Henüz bir todo yok</Text>
+                )}
+
+                {todoDescription ? ( // Eğer todo varsa açıklmayı görüntüle
+                    <Text style={{ margin: 20 }}>{todoDescription.description}</Text>
+                ) : ( // Eğer todo yoksa bir mesaj göster
+                    <Text style={{ margin: 20 }}>Henüz bir todo yok</Text>
+                )}
+
             </View>
         </View>
 

@@ -31,7 +31,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
         
         const newTodo: Todo = { title , description, deadline: new Date(), id: Date.now() };
         setTodos([...todos, newTodo]);
-        navigation.navigate('HomeScreen',{todos , setTodos});
+        navigation.goBack();
         
     };
     return (
