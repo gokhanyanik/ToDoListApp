@@ -5,19 +5,14 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-
-//type AddTodoScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>;
 type AddTodoProps = {
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 };
-
 const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-
     /*deadline için tanımlanan stateler */
     const [deadline, setDeadline] = useState<Date>(new Date());  // Başlangıç olarak bugünün tarihini veriyoruz.
     const [showPicker, setShowPicker] = useState(false);  //tarih seçici açık/kapalı state ini başlangıçta kapalı yapıyoruz.
@@ -27,7 +22,6 @@ const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
         setShowPicker(false);  // Picker'ı kapat
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
-
     const handleAddTodo = () => {
         const newTodo: Todo = { title, description, deadline: deadline, id: Date.now() };
         setTodos([...todos, newTodo]);
@@ -51,7 +45,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
-                <Text style={{ right: 70, fontSize: 18, color: "white" }}>Deadline(Optional)</Text>
+                <Text style={styles.deadlineText}>Deadline(Optional)</Text>
                 {/*Deadline seçimi butonu */}
                 <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
                     <Image
@@ -69,7 +63,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
                 )}
             </View>
             <View style={styles.deadlineView}>
-                <Text style={{ right: 60, fontSize: 18, color: "white" }}>Add Image(Optional)</Text>
+                <Text style={styles.imageText}>Add Image(Optional)</Text>
                 {/*Image seçimi butonu */}
                 <TouchableOpacity style={[styles.buttonDeadline, { left: 80 }]} onPress={() => console.log("image eklenicek")}>
                     <Image
@@ -78,7 +72,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.addTodoClick} onPress={handleAddTodo}>
-                <Text style={{ color: "#FF8A80", fontSize: 20 }}>ADD TO DO</Text>
+                <Text style={styles.addText}>ADD TO DO</Text>
             </TouchableOpacity>
         </View>
     )
@@ -89,6 +83,15 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#FF8A80',
+    },
+    addText: {
+        color: "#FF8A80",
+        fontSize: 20
+    },
+    deadlineText: {
+        right: 70,
+        fontSize: 18,
+        color: "white"
     },
     title: {
         fontSize: 24,
@@ -139,19 +142,18 @@ const styles = StyleSheet.create({
         borderColor: "white",
         borderWidth: 1,
         margin: 7
-
     },
     buttonDeadline: {
         padding: 15,
-        //   backgroundColor: '#4caf50',
         borderRadius: 10,
         margin: 5,
         left: 90
+    },
+    imageText: {
+        right: 60,
+        fontSize: 18,
+        color: "white"
     }
 })
 
 export default AddTodo;
-
-function setTodos(arg0: any[]) {
-    throw new Error("Function not implemented.");
-}

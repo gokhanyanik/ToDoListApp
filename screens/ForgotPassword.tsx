@@ -5,27 +5,21 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList, Todo } from '../types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 type ForgotTodoProps = {
     todos: Todo[];  // Burada todosun tipini tanımladık.
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
 };
-
 const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
     const [password, setPassword] = useState('')
     const [comfirmPassword, setComfirmPassword] = useState('')
-
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
-
-
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ justifyContent: "flex-start", alignItems: "center", margin: 50 }}>
+        <View style={styles.main}>
+            <View style={styles.todolistImageView}>
                 <Image
                     source={require('../assets/images/todolistSignIn.png')}
                     style={styles.image}
@@ -65,7 +59,7 @@ const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
-                    <Text style={{ color: "white" }}>CHANGE PASSWORD</Text>
+                    <Text style={styles.clickText}>CHANGE PASSWORD</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -73,6 +67,9 @@ const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
 }
 
 const styles = StyleSheet.create({
+    main: {
+        flex: 1
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -83,6 +80,11 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         resizeMode: "contain"
+    },
+    todolistImageView: {
+        justifyContent: "flex-start",
+        alignItems: "center",
+        margin: 50
     },
     title: {
         fontSize: 24,
@@ -128,7 +130,10 @@ const styles = StyleSheet.create({
     },
     icon: {
         margin: 5
-    }
+    },
+    clickText: {
+        color: "white"
+    },
 })
 
 

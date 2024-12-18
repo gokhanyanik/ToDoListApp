@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
@@ -9,23 +9,19 @@ type SignUpProps = {
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 };
-
-const SignUp: React.FC<SignUpProps> = ({ todos, setTodos })=> {
-   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
+const SignUp: React.FC<SignUpProps> = ({ todos, setTodos }) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [fulName, setFulName] = useState('')
     const [comfirmPassword, setComfirmPassword] = useState('')
-
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
-
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ justifyContent: "flex-start", alignItems: "center", margin: 50 }}>
+        <View style={styles.main}>
+            <View style={styles.todolistViewImage}>
                 <Image
                     source={require('../assets/images/todolistSignIn.png')}
                     style={styles.image}
@@ -78,26 +74,33 @@ const SignUp: React.FC<SignUpProps> = ({ todos, setTodos })=> {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn',{todos,setTodos})}>
-                    <Text style={{ color: "white" }}>SIGN UP</Text>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
+                    <Text style={styles.textSignUp}>SIGN UP</Text>
                 </TouchableOpacity>
-                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View style={styles.questionView}>
                     <Text>Have an account? </Text>
-                    <TouchableOpacity style={{ width: 90, height: 50 }} onPress={() => navigation.navigate('SignIn',{todos,setTodos})}>
-                        <Text style={{ color: "#FF8A80" }}>LOG IN</Text>
+                    <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
+                        <Text style={styles.loginText}>LOG IN</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
     )
 }
-
 const styles = StyleSheet.create({
+    main: {
+        flex: 1
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
+    },
+    todolistViewImage: {
+        justifyContent: "flex-start",
+        alignItems: "center",
+        margin: 50
     },
     image: {
         width: 200,
@@ -148,6 +151,20 @@ const styles = StyleSheet.create({
     },
     icon: {
         margin: 5
+    },
+    textSignUp: {
+        color: "white"
+    },
+    questionView: {
+        flexDirection: "row",
+        justifyContent: "center"
+    },
+    loginTouchable: {
+        width: 90,
+        height: 50
+    },
+    loginText: {
+        color: "#FF8A80"
     }
 })
 export default SignUp;

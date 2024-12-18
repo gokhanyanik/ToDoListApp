@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList, Todo } from './types';
-import { StyleSheet } from 'react-native';
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import HomeScreen from './screens/HomeScreen';
@@ -34,16 +33,16 @@ function App(): React.JSX.Element {
           {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="DetailTodo" >
-          {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos}  />}
+          {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="EditTodo" >
           {(props) => <EditTodo {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="ProfilScreen" >
-        {(props) => <ProfilScreen {...props} todos={todos} setTodos={setTodos} />}
+          {(props) => <ProfilScreen {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
         <Stack.Screen name="ForgotPassword" >
-        {(props) => <ForgotPassword {...props} todos={todos} setTodos={setTodos} />}
+          {(props) => <ForgotPassword {...props} todos={todos} setTodos={setTodos} />}
         </Stack.Screen>
 
       </Stack.Navigator>
@@ -51,23 +50,4 @@ function App(): React.JSX.Element {
 
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flex: 1
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
 export default App;

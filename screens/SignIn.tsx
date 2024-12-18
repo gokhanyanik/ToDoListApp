@@ -10,25 +10,22 @@ type SignInProps = {
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 };
-
 const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ justifyContent: "flex-start", alignItems: "center", margin: 50 }}>
+        <View style={styles.main}>
+            <View style={styles.todolistImage}>
                 <Image
                     source={require('../assets/images/todolistSignIn.png')}
                     style={styles.image}
                 />
             </View>
-
             <View style={styles.container}>
                 <TextInput
                     style={styles.input}
@@ -53,35 +50,60 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
                             color="gray"
                         />
                     </TouchableOpacity>
-
                 </View>
-                <View style={{ width: '100%', alignItems: "flex-end", right: 10, margin: 15 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword",{todos,setTodos})}>
+                <View style={styles.forgotpasswordTextView}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword", { todos, setTodos })}>
                         <Text>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('HomeScreen',{todos,setTodos})}>
-                    <Text style={{ color: "white" }}>SIGN IN</Text>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('HomeScreen', { todos, setTodos })}>
+                    <Text style={styles.signinText}>SIGN IN</Text>
                 </TouchableOpacity>
 
-                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View style={styles.questionView}>
                     <Text>Don't have an account? </Text>
-                    <TouchableOpacity style={{ width: 90, height: 50 }} onPress={() => navigation.navigate('SignUp',{todos,setTodos})}>
-                        <Text style={{ color: "#FF8A80" }}>SIGN UP</Text>
+                    <TouchableOpacity style={styles.touchableSingUp} onPress={() => navigation.navigate('SignUp', { todos, setTodos })}>
+                        <Text style={styles.textSignUp}>SIGN UP</Text>
                     </TouchableOpacity>
                 </View>
-
             </View>
         </View>
     )
 }
-
 const styles = StyleSheet.create({
+    main: {
+        flex: 1
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
+    },
+    todolistImage: {
+        justifyContent: "flex-start",
+        alignItems: "center",
+        margin: 50
+    },
+    forgotpasswordTextView: {
+        width: '100%',
+        alignItems: "flex-end",
+        right: 10,
+        margin: 15
+    },
+    signinText: {
+        color: "white"
+    },
+    questionView: {
+        flexDirection: "row",
+        justifyContent: "center"
+    },
+    touchableSingUp: {
+        width: 90,
+        height: 50
+    },
+    textSignUp: {
+        color: "#FF8A80"
     },
     image: {
         width: 200,
@@ -113,8 +135,6 @@ const styles = StyleSheet.create({
     inputPassword: {
         width: 350,
         height: 50,
-        // borderColor: '#ccc',
-        // borderWidth: 1,
         marginBottom: 15,
         paddingHorizontal: 10,
         borderRadius: 15,
