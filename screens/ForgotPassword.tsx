@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../types';
+import { RootStackParamList, Todo } from '../types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-type ForgotPasswordScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'ForgotPassword'>;
+type ForgotTodoProps = {
+    todos: Todo[];  // Burada todosun tipini tanımladık.
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
+};
 
-const ForgotPassword = () => {
-    const navigation = useNavigation<ForgotPasswordScreenNavigationProps>()
+const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [password, setPassword] = useState('')
     const [comfirmPassword, setComfirmPassword] = useState('')
@@ -18,6 +21,7 @@ const ForgotPassword = () => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+
 
     return (
         <View style={{ flex: 1 }}>
@@ -60,7 +64,7 @@ const ForgotPassword = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn')}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
                     <Text style={{ color: "white" }}>CHANGE PASSWORD</Text>
                 </TouchableOpacity>
             </View>

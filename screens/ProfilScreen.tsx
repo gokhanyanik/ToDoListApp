@@ -2,11 +2,14 @@ import React from "react";
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../types';
+import { RootStackParamList, Todo } from '../types';
 
 type ProfilScreenScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'ProfilScreen'>;
-
-const ProfilScreen = () => {
+type DetailTodoProps = {
+    todos: Todo[];  // Burada todosun tipini tanımladık.
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
+};
+const ProfilScreen: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<ProfilScreenScreenNavigationProps>();
     return (
         <View style={styles.container}>
@@ -44,7 +47,7 @@ const ProfilScreen = () => {
                     <Text style={{ fontSize: 22, color: "#F79E89" }}>Change Password </Text>
                 </View>
             </View>
-            <TouchableOpacity style={[styles.logoutClick, { top: 120 }]} onPress={() => navigation.navigate('SignIn')}>
+            <TouchableOpacity style={[styles.logoutClick, { top: 120 }]} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
                 <Text style={{ color: "white", fontSize: 20 }}>LOG OUT</Text>
             </TouchableOpacity>
         </View>

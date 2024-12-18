@@ -56,7 +56,7 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
 
                 </View>
                 <View style={{ width: '100%', alignItems: "flex-end", right: 10, margin: 15 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword",{todos,setTodos})}>
                         <Text>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
