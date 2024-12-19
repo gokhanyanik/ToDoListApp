@@ -23,7 +23,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
     const handleEditTodo = (): void => {
-        const newTodo: Todo = { title, description, deadline: new Date(), id: Date.now() };
+        const newTodo: Todo = { title, description, deadline, id: Date.now() };
         setTodos([...todos, newTodo]);
         navigation.goBack();
     };

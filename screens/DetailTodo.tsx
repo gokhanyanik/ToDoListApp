@@ -16,18 +16,17 @@ const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
     const todoDescription = todos.length > 0 ? todos[0] : null; // Dizinin boş olup olmadığını kontrol et.
 
     const todoId = route.params?.todoId;
-    console.log("alınan tdoId: ", todoId)
+    console.log(todoId)
     const todo = todos.find((t) => t.id === Number(todoId));
-
+    console.log("silmeden önce seçilen id li todo : ",todo)
+       
     const handleDeleteTodo = (id: number, event: GestureResponderEvent): void => {
         const filteredTodos = todos.filter((todo) => todo.id !== id);
         setTodos(filteredTodos);
-        console.log("filtrelenen Todos: ", todos);
         navigation.navigate("HomeScreen", { todos: filteredTodos, setTodos });
-        console.log("güncel todo: ", todo)
-        console.log("güncel", todoId)
     };
 
+    
     return (
         <View style={styles.main}>
             <View style={styles.container}>

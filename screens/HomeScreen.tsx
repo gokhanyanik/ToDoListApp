@@ -53,7 +53,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos, todoId }) => {
                     <View style={styles.flatlistView}>
                         <TouchableOpacity
                             style={styles.flatlistTouchable}
-                            onPress={() => navigation.navigate('DetailTodo', { todos, setTodos, todoId })}
+                            onPress={() => navigation.navigate('DetailTodo', { todos, setTodos, todoId:item.id })}
                         >
                             <Text style={styles.flatlistTextTitle}>{item.title}</Text>
                             <Text style={styles.flatlistTextDescription}>{item.description}</Text>

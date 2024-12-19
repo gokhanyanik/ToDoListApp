@@ -22,10 +22,10 @@ const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
         setShowPicker(false);  // Picker'ı kapat
         setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
     };
-    const handleAddTodo = () => {
-        const newTodo: Todo = { title, description, deadline: deadline, id: Date.now() };
-        setTodos([...todos, newTodo]);
-        navigation.navigate('HomeScreen', { todos, setTodos })
+    const handleAddTodo = ():void => {
+        const newTodo: Todo = { title, description, deadline, id: Date.now() };// Todo listesine eklemek için yeni bir obje(todo) tanımlandı
+        setTodos([...todos, newTodo]);  //setTodos fonk. güncelleniyor.burada yapılan işlem todos kopyalanıp sonuna yeni obje ilave edilir.
+        navigation.navigate('HomeScreen', { todos, setTodos })  //Navigation ile homeScreen ekranına geçiş sağlanır ve todos(dizi) ve setTodos(güncelleme fonksiyonu) parametreleri verilir.
     }
     return (
         <View style={styles.container}>
