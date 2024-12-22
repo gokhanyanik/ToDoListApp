@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
@@ -51,9 +51,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos, todoId }) => {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.flatlistView}>
+
                         <TouchableOpacity
                             style={styles.flatlistTouchable}
-                            onPress={() => navigation.navigate('DetailTodo', { todos, setTodos, todoId:item.id })}
+                            onPress={() => navigation.navigate('DetailTodo', { todos, setTodos, todoId: item.id })}
                         >
                             <Text style={styles.flatlistTextTitle}>{item.title}</Text>
                             <Text style={styles.flatlistTextDescription}>{item.description}</Text>

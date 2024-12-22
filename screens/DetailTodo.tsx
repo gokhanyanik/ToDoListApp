@@ -7,26 +7,33 @@ import { RootStackParamList, Todo } from '../types';
 type DetailTodoProps = {
     todos: Todo[];  // Burada todosun tipini tanımladık.
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
+    todoId:number
 };
 const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
     const route = useRoute<RouteProp<RootStackParamList, "DetailTodo">>();
-    // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
-    const todoTitle = todos.length > 0 ? todos[0] : null; // Dizinin boş olup olmadığını kontrol et.
-    const todoDescription = todos.length > 0 ? todos[0] : null; // Dizinin boş olup olmadığını kontrol et.
-
+   
     const todoId = route.params?.todoId;
     console.log(todoId)
     const todo = todos.find((t) => t.id === Number(todoId));
     console.log("silmeden önce seçilen id li todo : ",todo)
        
-    const handleDeleteTodo = (id: number, event: GestureResponderEvent): void => {
+     // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
+     const todoTitle = todo?.title ; // Dizinin boş olup olmadığını kontrol et.
+     const todoDescription =todo?.description ; // Dizinin boş olup olmadığını kontrol et.
+ 
+     console.log("seçilen todoTitle: ", todoTitle)
+     console.log("seçilen todoDescription: ", todoDescription)
+     console.log("todo değeri: ",todo)
+     const handleDeleteTodo = (id: number, event: GestureResponderEvent): void => {
+        console.log("todo'nun değeri: ",todo)
         const filteredTodos = todos.filter((todo) => todo.id !== id);
         setTodos(filteredTodos);
         navigation.navigate("HomeScreen", { todos: filteredTodos, setTodos });
     };
 
-    
+    console.log("todo yeni değer: ", todo)
+    console.log("todos yeni değer: ", todos)
     return (
         <View style={styles.main}>
             <View style={styles.container}>
@@ -50,7 +57,7 @@ const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('EditTodo', { todos, setTodos })}>
+                            onPress={() => navigation.navigate('EditTodo', { todos, setTodos ,todoId})}>
                             <Image
                                 source={require('../assets/images/düzenle.png')}
                                 style={styles.editImage}
@@ -67,12 +74,12 @@ const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
             </View>
             <View style={styles.todoControl}>
                 {todoTitle ? ( // Eğer todo varsa başlığı görüntüle
-                    <Text style={styles.titleText}>{todoTitle.title}</Text>
+                    <Text style={styles.titleText}>{todoTitle}</Text>
                 ) : ( // Eğer todo yoksa bir mesaj göster
                     <Text style={styles.alertText}>Henüz bir todo yok</Text>
                 )}
                 {todoDescription ? ( // Eğer todo varsa açıklmayı görüntüle
-                    <Text style={styles.descriptionText}>{todoDescription.description}</Text>
+                    <Text style={styles.descriptionText}>{todoDescription}</Text>
                 ) : ( // Eğer todo yoksa bir mesaj göster
                     <Text style={styles.alertText}>Henüz bir todo yok</Text>
                 )}
