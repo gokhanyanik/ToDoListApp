@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '../redux/store'
+import { setEmail,setPassword,setIsLoading } from "../redux/todoSlice";
 
 //signIn için tip tanımlaması...
 type SignInProps = {
@@ -12,12 +15,29 @@ type SignInProps = {
 };
 const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const togglePasswordVisibility = () => {
-        setIsPasswordVisible(!isPasswordVisible);
+   const togglePasswordVisibility = () => {
+       setIsPasswordVisible(!isPasswordVisible);
     };
+
+
+    //userSlice içerisindeki verilerin okunması
+    const {email,password,isLoading}= useSelector((state: RootState) => state.todo)
+    
+
+    //userSlice içerisindeki reducer yapılarını kullanma veya veri gönderme
+    const dispatch=useDispatch()
+    
+    
+    
+    const handleSignIn = () => {
+        if (email&&password) {
+            navigation.navigate('HomeScreen', { todos, setTodos })
+        } else {
+            Alert.alert("hatalı giriş")
+        }
+    }
     return (
         <View style={styles.main}>
             <View style={styles.todolistImage}>
@@ -33,15 +53,15 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
-                    onChangeText={setEmail}
+                    onChangeText={(value)=>dispatch(setEmail(value))}
                 />
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputPassword}
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
-                        value={password}
-                        onChangeText={setPassword}
+                        value={String(password)}
+                        onChangeText={(value)=>dispatch(setPassword(value))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
@@ -56,7 +76,7 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
                         <Text>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('HomeScreen', { todos, setTodos })}>
+                <TouchableOpacity style={styles.touchable} onPress={handleSignIn}>
                     <Text style={styles.signinText}>SIGN IN</Text>
                 </TouchableOpacity>
 

@@ -10,6 +10,7 @@ export interface TodoState {
     email: string;
     password: number;
     isLoading:boolean;
+   
 }
 
 const initialState: TodoState = {
@@ -27,13 +28,19 @@ export const todoSlice=createSlice({
 name:'todo',
 initialState,
 reducers:{
-    setTitle:(state,action)=>{
-        state.title=action.payload
+    setEmail:(state,action)=>{
+        state.email=action.payload
+    },
+    setPassword:(state,action)=>{
+        state.password=action.payload
+    },
+    setIsLoading:(state,action)=>{
+        state.isLoading=action.payload
     }
 }
 
 })
 
 
-export const {setTitle} = todoSlice.actions
+export const {setEmail,setPassword,setIsLoading} = todoSlice.actions
 export default todoSlice.reducer
