@@ -3,14 +3,15 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList, Todo } from '../types';
+import { RootState } from "../redux/store";
+import { useSelector } from "react-redux";
+import { setTodos } from "../redux/todoSlice";
 
 type ProfilScreenScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'ProfilScreen'>;
-type DetailTodoProps = {
-    todos: Todo[];  // Burada todosun tipini tanımladık.
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
-};
-const ProfilScreen: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
+
+const ProfilScreen = () => {
     const navigation = useNavigation<ProfilScreenScreenNavigationProps>();
+    const todos=useSelector((state:RootState)=>state.todo.todos)
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>

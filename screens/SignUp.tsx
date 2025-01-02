@@ -4,18 +4,14 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { setEmail, setPassword, setFulName, setComfirmPassword, setIsPasswordVisible } from "../redux/todoSlice";
+import { setEmail, setPassword, setFulName, setComfirmPassword, setIsPasswordVisible,setTodos } from "../redux/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-type SignUpProps = {
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-};
-const SignUp: React.FC<SignUpProps> = ({ todos, setTodos }) => {
+const SignUp= () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const { email, password, fulName, comfirmPassword, isPasswordVisible } = useSelector((state: RootState) => state.todo)
+    const { email, password, fulName, comfirmPassword, isPasswordVisible ,todos} = useSelector((state: RootState) => state.todo)
     const dispatch = useDispatch()
 
     const togglePasswordVisibility = () => {

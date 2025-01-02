@@ -6,22 +6,19 @@ import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '../redux/store'
-import { setEmail, setPassword, setIsLoading } from "../redux/todoSlice";
+import { setEmail, setPassword, setIsLoading, setTodos } from "../redux/todoSlice";
 
-//signIn için tip tanımlaması...
-type SignInProps = {
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-};
-const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
+
+const SignIn = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+
     //userSlice içerisindeki verilerin okunması
-    const { email, password, isLoading } = useSelector((state: RootState) => state.todo)
+    const { email, password, isLoading, todos } = useSelector((state: RootState) => state.todo)
     //userSlice içerisindeki reducer yapılarını kullanma veya veri gönderme
     const dispatch = useDispatch()
 

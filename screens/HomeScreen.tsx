@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList, Todo } from "../types";
+import { useSelector ,useDispatch} from "react-redux";
+import { RootState } from "../redux/store";
+import { setTodos } from "../redux/todoSlice";
+import { RootStackParamList } from "../types";
 
-//HomeScreen için özel tanımlanan tipi ifade eder ve içerisinde Todo tipini de barındırır.
-type HomeScreenProps = {
-    todos: Todo[];  // Burada todosun tipini tanımladık.
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
-    todoId: number
-};
-const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos, todoId }) => {
+
+const HomeScreen= () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const {todos,todoId}=useSelector((state:RootState)=>state.todo)
+    const dispatch=useDispatch()
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -21,7 +21,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos, todoId }) => {
                         style={styles.todolistIkonImage}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableStyle} onPress={() => navigation.navigate('ProfilScreen')}>
+                <TouchableOpacity style={styles.touchableStyle} onPress={() => navigation.navigate('ProfilScreen',{todos,setTodos})}>
                     <Image
                         source={require('../assets/images/ayarlarIkonProfilScreen.png')}
                         style={styles.optionIkonImage}
@@ -54,7 +54,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ todos, setTodos, todoId }) => {
 
                         <TouchableOpacity
                             style={styles.flatlistTouchable}
-                            onPress={() => navigation.navigate('DetailTodo', { todos, setTodos, todoId: item.id })}
+                            onPress={() => navigation.navigate('DetailTodo', {todos,setTodos,todoId})}
                         >
                             <Text style={styles.flatlistTextTitle}>{item.title}</Text>
                             <Text style={styles.flatlistTextDescription}>{item.description}</Text>

@@ -5,15 +5,11 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList, Todo } from '../types';
 import { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
+import { setTodos } from "../redux/todoSlice";
 
-type DetailTodoProps = {
-    todos: Todo[];  // Burada todosun tipini tanımladık.
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
-
-};
-const DetailTodo: React.FC<DetailTodoProps> = ({ todos, setTodos }) => {
+const DetailTodo = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-    const todoId = useSelector((state: RootState) => state.todo.todoId)
+    const { todoId, todos } = useSelector((state: RootState) => state.todo)
     const todo = todos.find((t) => t.id === Number(todoId));
     // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
     const todoTitle = todo?.title; // Dizinin boş olup olmadığını kontrol et.

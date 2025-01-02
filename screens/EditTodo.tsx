@@ -4,19 +4,15 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { setTitle, setDescription, setDeadline, setShowPicker } from "../redux/todoSlice";
+import { setTitle, setDescription, setDeadline, setShowPicker, setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 
-type EditTodoProps = {
-    todos: Todo[];  // Burada todosun tipini tanımladık.
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
-    todoId: number
-};
-const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
+
+const EditTodo = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const { title, description, deadline, showPicker, todoId } = useSelector((state: RootState) => state.todo)
+    const { title, description, deadline, showPicker, todoId, todos } = useSelector((state: RootState) => state.todo)
     const dispatch = useDispatch()
 
     const todoIdNew = todoId;

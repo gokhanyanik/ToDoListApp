@@ -10,8 +10,8 @@ export type RootStackParamList = {
   SignIn: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
   HomeScreen: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
   AddTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
-  DetailTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;todoId: number;  };
-  EditTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> ;todoId: number;};
-  ProfilScreen: undefined;
-  ForgotPassword:  { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
+  DetailTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; todoId: number; };
+  EditTodo: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; todoId: number; };
+  ProfilScreen: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
+  ForgotPassword: { todos: Todo[]; setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
 };

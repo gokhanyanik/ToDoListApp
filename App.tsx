@@ -12,42 +12,24 @@ import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
 import ProfilScreen from './screens/ProfilScreen';
 import ForgotPassword from './screens/ForgotPassword';
+import { RootState } from './redux/store';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
+const Stack = createNativeStackNavigator()
 function App(): React.JSX.Element {
-
-  const [todos, setTodos] = useState<Todo[]>([]);
 
   return (
     <Provider store={store}>
       <NavigationContainer >
         <Stack.Navigator initialRouteName='SignIn'>
-          <Stack.Screen name="SignIn" >
-            {(props) => < SignIn {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="SignUp" >
-            {(props) => < SignUp {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="HomeScreen" >
-            {(props) => <HomeScreen todoId={0} {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="AddTodo">
-            {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="DetailTodo" >
-            {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="EditTodo" >
-            {(props) => <EditTodo todoId={0} {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="ProfilScreen" >
-            {(props) => <ProfilScreen {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-          <Stack.Screen name="ForgotPassword" >
-            {(props) => <ForgotPassword {...props} todos={todos} setTodos={setTodos} />}
-          </Stack.Screen>
-
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="AddTodo" component={AddTodo} />
+          <Stack.Screen name="DetailTodo" component={DetailTodo} />
+          <Stack.Screen name="EditTodo" component={EditTodo} />
+          <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

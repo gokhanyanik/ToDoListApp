@@ -4,17 +4,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList, Todo } from '../types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { setPassword, setComfirmPassword, setIsPasswordVisible } from "../redux/todoSlice";
+import { setPassword, setComfirmPassword, setIsPasswordVisible, setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 
-type ForgotTodoProps = {
-    todos: Todo[];  // Burada todosun tipini tanımladık.
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
-};
-const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
+const ForgotPassword = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { password, comfirmPassword, isPasswordVisible } = useSelector((state: RootState) => state.todo)
+    const { password, comfirmPassword, isPasswordVisible, todos } = useSelector((state: RootState) => state.todo)
     const dispatch = useDispatch()
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
