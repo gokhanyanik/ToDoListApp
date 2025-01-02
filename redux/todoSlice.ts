@@ -13,6 +13,7 @@ export interface TodoState {
     fulName: string;
     comfirmPassword: string;
     isPasswordVisible:boolean;
+    todoId:number;
    
 
 }
@@ -27,7 +28,8 @@ const initialState: TodoState = {
     isLoading: false,
     fulName: '',
     comfirmPassword: '',
-    isPasswordVisible:false
+    isPasswordVisible:false,
+    todoId:0,
 
 }
 

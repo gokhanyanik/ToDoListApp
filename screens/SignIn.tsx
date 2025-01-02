@@ -20,16 +20,10 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
-
-
     //userSlice içerisindeki verilerin okunması
     const { email, password, isLoading } = useSelector((state: RootState) => state.todo)
-
-
     //userSlice içerisindeki reducer yapılarını kullanma veya veri gönderme
     const dispatch = useDispatch()
-
-
 
     const handleSignIn = () => {
         if (email && password) {

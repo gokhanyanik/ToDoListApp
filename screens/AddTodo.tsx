@@ -4,27 +4,20 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { setTitle ,setDescription,setDeadline,setShowPicker} from '../redux/todoSlice';
+import { setTitle, setDescription, setDeadline, setShowPicker } from '../redux/todoSlice';
 import { RootState } from "../redux/store";
-import {useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-    type AddTodoProps = {
-        todos: Todo[];
-        setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-    };
+type AddTodoProps = {
+    todos: Todo[];
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+};
 const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const {title,description,deadline,showPicker}=useSelector((state:RootState)=>state.todo)
-    const dispatch=useDispatch()
+    const { title, description, deadline, showPicker } = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
 
-
-  //  const [title, setTitle] = useState('')
-   // const [description, setDescription] = useState('')
-    /*deadline için tanımlanan stateler */
-  //  const [deadline, setDeadline] = useState<Date>(new Date());  // Başlangıç olarak bugünün tarihini veriyoruz.
-  //  const [showPicker, setShowPicker] = useState(false);  //tarih seçici açık/kapalı state ini başlangıçta kapalı yapıyoruz.
-    //Tarih seçildiğinde çağırılacak fonksiyon...
     const onChange = (event: any, selectedDate?: Date): void => {
         const currentDate = selectedDate instanceof Date ? selectedDate : deadline instanceof Date ? deadline : new Date();
         setShowPicker(false);  // Picker'ı kapat
@@ -42,14 +35,14 @@ const AddTodo: React.FC<AddTodoProps> = ({ todos, setTodos }) => {
                 placeholder="Title"
                 placeholderTextColor="white"
                 value={title}
-                onChangeText={(text)=>dispatch(setTitle(text))}
+                onChangeText={(text) => dispatch(setTitle(text))}
             />
             <TextInput
                 style={styles.descriptionInput}
                 placeholder="Description"
                 placeholderTextColor="white"
                 value={description}
-                onChangeText={(text)=>dispatch(setDescription(text))}
+                onChangeText={(text) => dispatch(setDescription(text))}
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>

@@ -36,7 +36,7 @@ function App(): React.JSX.Element {
             {(props) => <AddTodo {...props} todos={todos} setTodos={setTodos} />}
           </Stack.Screen>
           <Stack.Screen name="DetailTodo" >
-            {(props) => <DetailTodo todoId={0} {...props} todos={todos} setTodos={setTodos} />}
+            {(props) => <DetailTodo {...props} todos={todos} setTodos={setTodos} />}
           </Stack.Screen>
           <Stack.Screen name="EditTodo" >
             {(props) => <EditTodo todoId={0} {...props} todos={todos} setTodos={setTodos} />}
