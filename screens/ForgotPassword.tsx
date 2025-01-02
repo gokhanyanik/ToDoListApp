@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList, Todo } from '../types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { setPassword, setComfirmPassword, setIsPasswordVisible } from "../redux/todoSlice";
+import { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
 
 type ForgotTodoProps = {
     todos: Todo[];  // Burada todosun tipini tanımladık.
@@ -11,9 +14,8 @@ type ForgotTodoProps = {
 };
 const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [password, setPassword] = useState('')
-    const [comfirmPassword, setComfirmPassword] = useState('')
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const { password, comfirmPassword, isPasswordVisible } = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
@@ -31,8 +33,8 @@ const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
                         style={styles.inputPassword}
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
-                        value={password}
-                        onChangeText={setPassword}
+                        value={String(password)}
+                        onChangeText={(password) => dispatch(setPassword(password))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
@@ -48,7 +50,7 @@ const ForgotPassword: React.FC<ForgotTodoProps> = ({ todos, setTodos }) => {
                         placeholder="Comfirm Password"
                         secureTextEntry={!isPasswordVisible}
                         value={comfirmPassword}
-                        onChangeText={setComfirmPassword}
+                        onChangeText={(Text) => dispatch(setComfirmPassword(Text))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon

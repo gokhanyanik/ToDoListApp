@@ -1,35 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation ,useRoute,RouteProp} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { setTitle, setDescription, setDeadline, setShowPicker } from "../redux/todoSlice";
+import { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
 
 type EditTodoProps = {
     todos: Todo[];  // Burada todosun tipini tanımladık.
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; //setTodosun tipini tanımladık burada 
-    todoId:number
+    todoId: number
 };
 const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const route = useRoute<RouteProp<RootStackParamList, "EditTodo">>();
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    /*deadline için tanımlanan stateler */
-    const [deadline, setDeadline] = useState(new Date());  // Başlangıç olarak bugünün tarihini veriyoruz.
-    const [showPicker, setShowPicker] = useState(false);  //tarih seçici açık/kapalı state ini başlangıçta kapalı yapıyoruz.
-    //Tarih seçildiğinde çağırılacak fonksiyon...
 
+    const { title, description, deadline, showPicker, todoId } = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
 
-    const todoIdNew = route.params?.todoId;
+    const todoIdNew = todoId;
     console.log(todoIdNew)
     const todo = todos.find((t) => t.id === Number(todoIdNew));
-    console.log("silmeden önce seçilen id li todo : ",todo)
-    const todoTitle = todo?.title ; // Dizinin boş olup olmadığını kontrol et.
-    const todoDescription =todo?.description ;
-    
-    
-    
+    console.log("silmeden önce seçilen id li todo : ", todo)
+    const todoTitle = todo?.title; // Dizinin boş olup olmadığını kontrol et.
+    const todoDescription = todo?.description;
+
     const onChange = (event: any, selectedDate?: Date): void => {
         const currentDate = selectedDate || deadline;
         setShowPicker(false);  // Picker'ı kapat
@@ -40,28 +36,28 @@ const EditTodo: React.FC<EditTodoProps> = ({ todos, setTodos }) => {
         setTodos([...todos, newTodo]);
         navigation.goBack();
     };
-  
+
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.titleInput}
-                placeholder={` ${todos.length > 0 ? todoTitle: "No todos"}`} // İlk todo'nun başlığı gösterilir.
+                placeholder={` ${todos.length > 0 ? todoTitle : "No todos"}`} // İlk todo'nun başlığı gösterilir.
                 placeholderTextColor="white"
                 value={title}
-                onChangeText={setTitle}
+                onChangeText={(text) => dispatch(setTitle(text))}
             />
             <TextInput
                 style={styles.descriptionInput}
                 placeholder={` ${todos.length > 0 ? todoDescription : "No todos"}`}
                 placeholderTextColor="white"
                 value={description}
-                onChangeText={setDescription}
+                onChangeText={(text) => dispatch(setDescription(text))}
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
                 <Text style={styles.deadlineText}>  {todo?.deadline.toLocaleDateString("tr-TR")} {/* Örneğin, MM/DD/YYYY formatı */}</Text>
                 {/*Deadline seçimi butonu */}
-                <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
+                <TouchableOpacity style={styles.buttonDeadline} onPress={() => dispatch(setShowPicker(true))}>
                     <Image
                         source={require('../assets/images/deadLine.png')}
                     />
