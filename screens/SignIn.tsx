@@ -6,7 +6,7 @@ import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '../redux/store'
-import { setEmail,setPassword,setIsLoading } from "../redux/todoSlice";
+import { setEmail, setPassword, setIsLoading } from "../redux/todoSlice";
 
 //signIn için tip tanımlaması...
 type SignInProps = {
@@ -15,24 +15,24 @@ type SignInProps = {
 };
 const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  
+
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-   const togglePasswordVisibility = () => {
-       setIsPasswordVisible(!isPasswordVisible);
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
     };
 
 
     //userSlice içerisindeki verilerin okunması
-    const {email,password,isLoading}= useSelector((state: RootState) => state.todo)
-    
+    const { email, password, isLoading } = useSelector((state: RootState) => state.todo)
+
 
     //userSlice içerisindeki reducer yapılarını kullanma veya veri gönderme
-    const dispatch=useDispatch()
-    
-    
-    
+    const dispatch = useDispatch()
+
+
+
     const handleSignIn = () => {
-        if (email&&password) {
+        if (email && password) {
             navigation.navigate('HomeScreen', { todos, setTodos })
         } else {
             Alert.alert("hatalı giriş")
@@ -53,7 +53,7 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
-                    onChangeText={(value)=>dispatch(setEmail(value))}
+                    onChangeText={(text) => dispatch(setEmail(text))}
                 />
                 <View style={styles.inputView}>
                     <TextInput
@@ -61,7 +61,7 @@ const SignIn: React.FC<SignInProps> = ({ todos, setTodos }) => {
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
                         value={String(password)}
-                        onChangeText={(value)=>dispatch(setPassword(value))}
+                        onChangeText={(password) => dispatch(setPassword(password))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon

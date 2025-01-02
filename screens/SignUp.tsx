@@ -4,6 +4,9 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { setEmail, setPassword, setFulName, setComfirmPassword, setIsPasswordVisible } from "../redux/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 type SignUpProps = {
     todos: Todo[];
@@ -11,11 +14,10 @@ type SignUpProps = {
 };
 const SignUp: React.FC<SignUpProps> = ({ todos, setTodos }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [fulName, setFulName] = useState('')
-    const [comfirmPassword, setComfirmPassword] = useState('')
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const { email, password, fulName, comfirmPassword, isPasswordVisible } = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
+
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
@@ -34,21 +36,21 @@ const SignUp: React.FC<SignUpProps> = ({ todos, setTodos }) => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
-                    onChangeText={setEmail}
+                    onChangeText={(text) => dispatch(setEmail(text))}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
                     value={fulName}
-                    onChangeText={setFulName}
+                    onChangeText={(text) => dispatch(setFulName(text))}
                 />
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputPassword}
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
-                        value={password}
-                        onChangeText={setPassword}
+                        value={String(password)}
+                        onChangeText={(password) => dispatch(setPassword(password))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
@@ -64,7 +66,7 @@ const SignUp: React.FC<SignUpProps> = ({ todos, setTodos }) => {
                         placeholder="Comfirm Password"
                         secureTextEntry={!isPasswordVisible}
                         value={comfirmPassword}
-                        onChangeText={setComfirmPassword}
+                        onChangeText={(text) => dispatch(setComfirmPassword(text))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
