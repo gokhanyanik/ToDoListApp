@@ -1,35 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { setTitle, setDescription, setDeadline, setShowPicker, setTodos } from "../redux/todoSlice";
+import { RootStackParamList } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { Todo,setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
-import { useSelector, useDispatch } from "react-redux";
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
 
-const EditTodo = () => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-    const { title, description, deadline, showPicker, todoId, todos } = useSelector((state: RootState) => state.todo)
-    const dispatch = useDispatch()
-
-    const todoIdNew = todoId;
-    console.log(todoIdNew)
-    const todo = todos.find((t) => t.id === Number(todoIdNew));
-    console.log("silmeden önce seçilen id li todo : ", todo)
+const EditTodo = ({ route }: { route: any }) => {
+    const navigation = useNavigation<NavigationProp>();
+    const todos = useSelector((state: RootState) => state.todo.todos)
+    const dispatch=useDispatch()
+    const todoId = route.params?.todoId
+         console.log("edittodo daki todoId: ", todoId)
+    const todo = todos.find((t) => t.id === todoId);
+         console.log("silmeden önce seçilen id li todo : ", todo)
     const todoTitle = todo?.title; // Dizinin boş olup olmadığını kontrol et.
     const todoDescription = todo?.description;
-
+    
+    
+    const [showPicker,setShowPicker]=useState(false)
+    const [deadline,setDeadLine]=useState(new Date())
+    const [title,setTitle]=useState('')
+    const [description,setDescription]=useState('')
     const onChange = (event: any, selectedDate?: Date): void => {
         const currentDate = selectedDate || deadline;
         setShowPicker(false);  // Picker'ı kapat
-        setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
+       setDeadLine(currentDate);  //Seçilen tarihi state'e kaydet
     };
     const handleEditTodo = (): void => {
         const newTodo: Todo = { title, description, deadline, id: Date.now() };
-        setTodos([...todos, newTodo]);
+        dispatch(setTodos([...todos, newTodo]));
         navigation.goBack();
     };
 
@@ -40,20 +44,20 @@ const EditTodo = () => {
                 placeholder={` ${todos.length > 0 ? todoTitle : "No todos"}`} // İlk todo'nun başlığı gösterilir.
                 placeholderTextColor="white"
                 value={title}
-                onChangeText={(text) => dispatch(setTitle(text))}
+                onChangeText={(text) => setTitle(text)}
             />
             <TextInput
                 style={styles.descriptionInput}
                 placeholder={` ${todos.length > 0 ? todoDescription : "No todos"}`}
                 placeholderTextColor="white"
                 value={description}
-                onChangeText={(text) => dispatch(setDescription(text))}
+                onChangeText={(text) => setDescription(text)}
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
-                <Text style={styles.deadlineText}>  {todo?.deadline.toLocaleDateString("tr-TR")} {/* Örneğin, MM/DD/YYYY formatı */}</Text>
+                <Text style={styles.deadlineText}>  {todo?.deadline?.toString()} {/* Örneğin, MM/DD/YYYY formatı */}</Text>
                 {/*Deadline seçimi butonu */}
-                <TouchableOpacity style={styles.buttonDeadline} onPress={() => dispatch(setShowPicker(true))}>
+                <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
                     <Image
                         source={require('../assets/images/deadLine.png')}
                     />
@@ -61,7 +65,7 @@ const EditTodo = () => {
                 {/*Tarih seçici(picker) */}
                 {showPicker && (
                     <DateTimePicker
-                        value={deadline} // Başlangıç tarihi
+                        value={new Date(deadline)} // Başlangıç tarihi
                         mode="date"  //sadece tarih seçilecek
                         display="default"  // Platforma bağlı olarak tarih seçici görünümü
                         onChange={onChange} // tarih seçildiğinde çağırılacak fonksiyon

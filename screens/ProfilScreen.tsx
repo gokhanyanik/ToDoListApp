@@ -2,16 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList, Todo } from '../types';
-import { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
-import { setTodos } from "../redux/todoSlice";
+import { RootStackParamList } from "../types";
 
-type ProfilScreenScreenNavigationProps = NativeStackNavigationProp<RootStackParamList, 'ProfilScreen'>;
-
+type NavigationProp=NativeStackNavigationProp<RootStackParamList,'ProfilScreen'>
 const ProfilScreen = () => {
-    const navigation = useNavigation<ProfilScreenScreenNavigationProps>();
-    const todos=useSelector((state:RootState)=>state.todo.todos)
+    const navigation = useNavigation<NavigationProp>();
+  
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -48,7 +44,7 @@ const ProfilScreen = () => {
                     <Text style={styles.textUser}>Change Password </Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.logoutClick} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
+            <TouchableOpacity style={styles.logoutClick} onPress={() => navigation.navigate('SignIn')}>
                 <Text style={styles.clickText}>LOG OUT</Text>
             </TouchableOpacity>
         </View>

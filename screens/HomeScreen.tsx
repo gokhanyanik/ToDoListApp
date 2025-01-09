@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity, Image, FlatList } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector ,useDispatch} from "react-redux";
-import { RootState } from "../redux/store";
-import { setTodos } from "../redux/todoSlice";
 import { RootStackParamList } from "../types";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeScreen' >;// bu tip tanımlaması aşağıda navigation içerisindeki proplar için
 
-const HomeScreen= () => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const {todos,todoId}=useSelector((state:RootState)=>state.todo)
-    const dispatch=useDispatch()
+const HomeScreen = () => {
+    const navigation = useNavigation<NavigationProp>();
+    const { todos } = useSelector((state: RootState) => state.todo)  //redux store dan todos değerine ulaşıyoruz.Burada state.todo daki todo storeda reducer'a verilen ad
+    
+    console.log(todos)
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -21,7 +22,7 @@ const HomeScreen= () => {
                         style={styles.todolistIkonImage}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableStyle} onPress={() => navigation.navigate('ProfilScreen',{todos,setTodos})}>
+                <TouchableOpacity style={styles.touchableStyle} onPress={() => navigation.navigate('ProfilScreen')}>
                     <Image
                         source={require('../assets/images/ayarlarIkonProfilScreen.png')}
                         style={styles.optionIkonImage}
@@ -54,18 +55,18 @@ const HomeScreen= () => {
 
                         <TouchableOpacity
                             style={styles.flatlistTouchable}
-                            onPress={() => navigation.navigate('DetailTodo', {todos,setTodos,todoId})}
+                            onPress={() => navigation.navigate('DetailTodo', { todoId: item.id })}
                         >
                             <Text style={styles.flatlistTextTitle}>{item.title}</Text>
                             <Text style={styles.flatlistTextDescription}>{item.description}</Text>
-                            <Text style={styles.flatlistTextDeadline}>{item.deadline.toDateString()}</Text>
+                            <Text style={styles.flatlistTextDeadline}>{item.deadline.toString()}</Text>
                         </TouchableOpacity>
                     </View>
                 )}
             />
             <TouchableOpacity
                 style={styles.ekleTouchableImage}
-                onPress={() => navigation.navigate('AddTodo', { todos, setTodos })}
+                onPress={() => navigation.navigate('AddTodo')}
             >
                 <Image
                     source={require('../assets/images/ekle.png')}

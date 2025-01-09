@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList, Todo } from "../types";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { setEmail, setPassword, setFulName, setComfirmPassword, setIsPasswordVisible,setTodos } from "../redux/todoSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootStackParamList } from "../types";
 
-const SignUp= () => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const { email, password, fulName, comfirmPassword, isPasswordVisible ,todos} = useSelector((state: RootState) => state.todo)
-    const dispatch = useDispatch()
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
+
+const SignUp = () => {
+    const navigation = useNavigation<NavigationProp>();
+
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -32,13 +35,13 @@ const SignUp= () => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
-                    onChangeText={(text) => dispatch(setEmail(text))}
+                    onChangeText={(text) => setEmail(text)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
-                    value={fulName}
-                    onChangeText={(text) => dispatch(setFulName(text))}
+                    value={fullName}
+                    onChangeText={(text) => setFullName(text)}
                 />
                 <View style={styles.inputView}>
                     <TextInput
@@ -46,7 +49,7 @@ const SignUp= () => {
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
                         value={String(password)}
-                        onChangeText={(password) => dispatch(setPassword(password))}
+                        onChangeText={(password) => setPassword(password)}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
@@ -61,8 +64,8 @@ const SignUp= () => {
                         style={styles.inputPassword}
                         placeholder="Comfirm Password"
                         secureTextEntry={!isPasswordVisible}
-                        value={comfirmPassword}
-                        onChangeText={(text) => dispatch(setComfirmPassword(text))}
+                        value={confirmPassword}
+                        onChangeText={(text) =>setConfirmPassword(text)}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
@@ -72,12 +75,12 @@ const SignUp= () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn')}>
                     <Text style={styles.textSignUp}>SIGN UP</Text>
                 </TouchableOpacity>
                 <View style={styles.questionView}>
                     <Text>Have an account? </Text>
-                    <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate('SignIn', { todos, setTodos })}>
+                    <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate('SignIn')}>
                         <Text style={styles.loginText}>LOG IN</Text>
                     </TouchableOpacity>
                 </View>

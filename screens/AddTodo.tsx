@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList, Todo } from "../types";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { setTitle, setDescription, setDeadline, setShowPicker, setTodos } from '../redux/todoSlice';
+import { setTodos, Todo } from "../redux/todoSlice"
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { RootStackParamList } from "../types";
 
+type NavigationProp=NativeStackNavigationProp<RootStackParamList,'AddTodo'>
 
 const AddTodo = () => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-    const { title, description, deadline, showPicker, todos } = useSelector((state: RootState) => state.todo)
+    const navigation = useNavigation<NavigationProp>();
+    const todos = useSelector((state: RootState) => state.todo.todos);
     const dispatch = useDispatch()
-
-    const onChange = (event: any, selectedDate?: Date): void => {
-        const currentDate = selectedDate instanceof Date ? selectedDate : deadline instanceof Date ? deadline : new Date();
-        setShowPicker(false);  // Picker'ı kapat
-        setDeadline(currentDate);  //Seçilen tarihi state'e kaydet
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [deadline, setDeadLine] = useState(new Date)
+    const [showPicker, setShowPicker] = useState(false);
+    const onChange = (selectedDate?: Date): void => {
+        const currentDate = selectedDate ? selectedDate : deadline;
+        setShowPicker(false);
+        setDeadLine(currentDate);
     };
     const handleAddTodo = (): void => {
-        const newTodo: Todo = { title, description, deadline, id: Date.now() };// Todo listesine eklemek için yeni bir obje(todo) tanımlandı
-        setTodos([...todos, newTodo]);  //setTodos fonk. güncelleniyor.burada yapılan işlem todos kopyalanıp sonuna yeni obje ilave edilir.
-        navigation.navigate('HomeScreen', { todos, setTodos })  //Navigation ile homeScreen ekranına geçiş sağlanır ve todos(dizi) ve setTodos(güncelleme fonksiyonu) parametreleri verilir.
+        const newTodo: Todo = { title, description, deadline, id: Date.now() };
+        dispatch(setTodos([...todos, newTodo]));
+
+        navigation.navigate('HomeScreen');
     }
     return (
         <View style={styles.container}>
@@ -32,14 +36,14 @@ const AddTodo = () => {
                 placeholder="Title"
                 placeholderTextColor="white"
                 value={title}
-                onChangeText={(text) => dispatch(setTitle(text))}
+                onChangeText={(t) => setTitle(t)}
             />
             <TextInput
                 style={styles.descriptionInput}
                 placeholder="Description"
                 placeholderTextColor="white"
                 value={description}
-                onChangeText={(text) => dispatch(setDescription(text))}
+                onChangeText={(d) => setDescription(d)}
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
@@ -53,10 +57,10 @@ const AddTodo = () => {
                 {/*Tarih seçici(picker) */}
                 {showPicker && (
                     <DateTimePicker
-                        value={deadline} // Başlangıç tarihi
+                        value={deadline ? new Date(deadline) : new Date()} // Başlangıç tarihi
                         mode="date"  //sadece tarih seçilecek
                         display="default"  // Platforma bağlı olarak tarih seçici görünümü
-                        onChange={onChange} // tarih seçildiğinde çağırılacak fonksiyon
+                        onChange={(event, selectedDate) => onChange(selectedDate)} // tarih seçildiğinde çağırılacak fonksiyon
                     />
                 )}
             </View>

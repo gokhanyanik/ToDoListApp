@@ -1,24 +1,30 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { RootStackParamList, Todo } from '../types';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from "../types";
+import { useSelector ,useDispatch} from "react-redux";
 import { RootState } from "../redux/store";
-import { useSelector, useDispatch } from "react-redux";
-import { setTodos } from "../redux/todoSlice";
+import { setTodos, Todo } from "../redux/todoSlice";
+type NavigationProp=NativeStackNavigationProp<RootStackParamList,'EditTodo'>
 
-const DetailTodo = () => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-    const { todoId, todos } = useSelector((state: RootState) => state.todo)
-    const todo = todos.find((t) => t.id === Number(todoId));
+const DetailTodo = ( { route }: { route: any }) => {
+    const navigation = useNavigation<NavigationProp>()
+    const todoId=route.params?.todoId
+    const todos=useSelector((state:RootState)=>state.todo)
+    const dispatch=useDispatch()
+    console.log("todos: ",todos)
+    console.log("todoid: ",todoId)
+    const todoNew = todos.todos.find((t) => t.id === todoId);
+    console.log("todoNew'in değeri: ", todoNew)  
     // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
-    const todoTitle = todo?.title; // Dizinin boş olup olmadığını kontrol et.
-    const todoDescription = todo?.description; // Dizinin boş olup olmadığını kontrol et.
-    const handleDeleteTodo = (id: number, event: GestureResponderEvent): void => {
-        console.log("todo'nun değeri: ", todo)
-        const filteredTodos = todos.filter((todo) => todo.id !== id);
-        setTodos(filteredTodos);
-        navigation.navigate("HomeScreen", { todos: filteredTodos, setTodos });
+    const todoTitle = todoNew?.title; // Dizinin boş olup olmadığını kontrol et.
+    console.log("todoTitle'in değeri: ", todoTitle)
+    const todoDescription = todoNew?.description; // Dizinin boş olup olmadığını kontrol et.
+    const handleDeleteTodo = (id: number): void => {
+        const filteredTodos = todos.todos.filter((todo) => todo.id !== id);
+        dispatch(setTodos(filteredTodos));
+        navigation.navigate("HomeScreen");
     };
     return (
         <View style={styles.main}>
@@ -43,13 +49,13 @@ const DetailTodo = () => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('EditTodo', { todos, setTodos, todoId })}>
+                            onPress={() => navigation.navigate('EditTodo',{todoId})}>
                             <Image
                                 source={require('../assets/images/düzenle.png')}
                                 style={styles.editImage}
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={(event) => handleDeleteTodo(todoId, event)}>
+                        <TouchableOpacity onPress={() => handleDeleteTodo(todoId!)}>
                             <Image
                                 source={require('../assets/images/copkutusu.png')}
                                 style={styles.deleteImage}
