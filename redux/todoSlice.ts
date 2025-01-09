@@ -5,7 +5,7 @@ export interface Todo {
     id: number;
     title: string;
     description: string;
-    deadline: Date;
+    deadline: string;
 };
 export interface TodoApp {
 

@@ -15,13 +15,13 @@ const AddTodo = () => {
     const todos = useSelector((state: RootState) => state.todo.todos);
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [deadline, setDeadLine] = useState(new Date)
+    const [description, setDescription] = useState('')//burada deadline string olarak tutuluyor ancak aşağıda kullanıldıgında tekrar date' cevirilicek
+    const [deadline, setDeadLine] = useState('')
     const [showPicker, setShowPicker] = useState(false);
     const onChange = (selectedDate?: Date): void => {
-        const currentDate = selectedDate ? selectedDate : deadline;
+        const currentDate = selectedDate ? selectedDate : deadline.toLocaleString();  //deadline date cevirildi
         setShowPicker(false);
-        setDeadLine(currentDate);
+        setDeadLine(currentDate.toLocaleString());
     };
     const handleAddTodo = (): void => {
         const newTodo: Todo = { title, description, deadline, id: Date.now() };

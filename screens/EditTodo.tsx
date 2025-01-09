@@ -23,18 +23,18 @@ const EditTodo = ({ route }: { route: any }) => {
     
     
     const [showPicker,setShowPicker]=useState(false)
-    const [deadline,setDeadLine]=useState(new Date())
+    const [deadline,setDeadLine]=useState('')
     const [title,setTitle]=useState('')
     const [description,setDescription]=useState('')
     const onChange = (event: any, selectedDate?: Date): void => {
-        const currentDate = selectedDate || deadline;
+        const currentDate = selectedDate || deadline.toLocaleString();
         setShowPicker(false);  // Picker'ı kapat
-       setDeadLine(currentDate);  //Seçilen tarihi state'e kaydet
+       setDeadLine(currentDate.toLocaleString());  //Seçilen tarihi state'e kaydet
     };
     const handleEditTodo = (): void => {
         const newTodo: Todo = { title, description, deadline, id: Date.now() };
         dispatch(setTodos([...todos, newTodo]));
-        navigation.goBack();
+        navigation.navigate('HomeScreen');
     };
 
     return (
