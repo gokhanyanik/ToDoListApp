@@ -32,8 +32,12 @@ const EditTodo = ({ route }: { route: any }) => {
        setDeadLine(currentDate.toLocaleString());  //Seçilen tarihi state'e kaydet
     };
     const handleEditTodo = (): void => {
-        const newTodo: Todo = { title, description, deadline, id: Date.now() };
-        dispatch(setTodos([...todos, newTodo]));
+        const updatedTodos = todos.map(todo =>
+            todo.id === todoId
+                ? { ...todo, title, description, deadline:  deadline.toString()  }
+                : todo
+        );
+        dispatch(setTodos(updatedTodos));
         navigation.navigate('HomeScreen');
     };
 
