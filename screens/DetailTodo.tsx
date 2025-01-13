@@ -3,23 +3,19 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from "../types";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-import { setTodos, Todo } from "../redux/todoSlice";
-type NavigationProp=NativeStackNavigationProp<RootStackParamList,'EditTodo'>
+import { setTodos } from "../redux/todoSlice";
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
 
-const DetailTodo = ( { route }: { route: any }) => {
+const DetailTodo = ({ route }: { route: any }) => {
     const navigation = useNavigation<NavigationProp>()
-    const todoId=route.params?.todoId
-    const todos=useSelector((state:RootState)=>state.todo)
-    const dispatch=useDispatch()
-    console.log("todos: ",todos)
-    console.log("todoid: ",todoId)
+    const todoId = route.params?.todoId
+    const todos = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
     const todoNew = todos.todos.find((t) => t.id === todoId);
-    console.log("todoNew'in değeri: ", todoNew)  
     // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
     const todoTitle = todoNew?.title; // Dizinin boş olup olmadığını kontrol et.
-    console.log("todoTitle'in değeri: ", todoTitle)
     const todoDescription = todoNew?.description; // Dizinin boş olup olmadığını kontrol et.
     const handleDeleteTodo = (id: number): void => {
         const filteredTodos = todos.todos.filter((todo) => todo.id !== id);
@@ -49,7 +45,7 @@ const DetailTodo = ( { route }: { route: any }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('EditTodo',{todoId})}>
+                            onPress={() => navigation.navigate('EditTodo', { todoId })}>
                             <Image
                                 source={require('../assets/images/düzenle.png')}
                                 style={styles.editImage}

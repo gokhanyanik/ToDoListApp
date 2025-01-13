@@ -4,16 +4,17 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RootStackParamList } from "../types";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
+import { setFullName, setEmail, setPassword } from "../redux/todoSlice";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
 
 const SignUp = () => {
     const navigation = useNavigation<NavigationProp>();
-
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [fullName, setFullName] = useState('');
+    const { fullName, email, password } = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -35,21 +36,21 @@ const SignUp = () => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
-                    onChangeText={(text) => setEmail(text)}
+                    onChangeText={(email) => dispatch(setEmail(email))}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
                     value={fullName}
-                    onChangeText={(text) => setFullName(text)}
+                    onChangeText={(fullName) => dispatch(setFullName(fullName))}
                 />
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputPassword}
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
-                        value={String(password)}
-                        onChangeText={(password) => setPassword(password)}
+                        value={password?.toString()}
+                        onChangeText={(password) => dispatch(setPassword(password))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
@@ -65,7 +66,7 @@ const SignUp = () => {
                         placeholder="Comfirm Password"
                         secureTextEntry={!isPasswordVisible}
                         value={confirmPassword}
-                        onChangeText={(text) =>setConfirmPassword(text)}
+                        onChangeText={(text) => setConfirmPassword(text)}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon

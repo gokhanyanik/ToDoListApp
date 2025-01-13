@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { store } from './redux/store'
+import { Provider } from 'react-redux'
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import HomeScreen from './screens/HomeScreen';
@@ -9,16 +11,15 @@ import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
 import ProfilScreen from './screens/ProfilScreen';
 import ForgotPassword from './screens/ForgotPassword';
-import { store } from './redux/store'
-import { Provider } from 'react-redux'
+
 
 const Stack = createNativeStackNavigator()
-function App(navigation: any): React.JSX.Element {
+function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
       <NavigationContainer >
-        <Stack.Navigator initialRouteName='SignIn'>
+        <Stack.Navigator initialRouteName='SignUp'>
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />

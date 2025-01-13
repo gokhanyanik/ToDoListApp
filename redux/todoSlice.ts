@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface Todo {
     id: number;
@@ -10,11 +9,16 @@ export interface Todo {
 export interface TodoApp {
 
     todos: Todo[];
-
+    fullName:string;
+    email:string;
+    password:number|null;
 }
 
 const initialState: TodoApp = {
-    todos: []
+    todos: [],
+    fullName:'',
+    email:'',
+    password:null,
 
 }
 
@@ -25,10 +29,20 @@ export const todoSlice = createSlice({
 
         setTodos: (state, action) => {
             state.todos = action.payload
-        }
+        },
+        setFullName:(state,action)=>{
+            state.fullName = action.payload
+        },
+        setEmail:(state,action)=>{
+            state.email=action.payload
+        },
+        setPassword:(state,action)=>{
+            state.password=action.payload
+        },
+        
     }
 })
 
 
-export const { setTodos } = todoSlice.actions
+export const { setTodos ,setFullName,setEmail,setPassword} = todoSlice.actions
 export default todoSlice.reducer

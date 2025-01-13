@@ -5,12 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RootStackParamList } from "../types";
 
-type NavigationProp=NativeStackNavigationProp<RootStackParamList,'ForgotPassword'>
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ForgotPassword'>
 const ForgotPassword = () => {
     const navigation = useNavigation<NavigationProp>();
-   const [password,setPassword]=useState('');
-   const [isPasswordVisible,setIsPasswordVisible]=useState(false);
-   const [confirmPassword,setConfirmPassword]=useState('')
+    const [password, setPassword] = useState('');
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('')
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
                         value={password}
-                        onChangeText={(e)=>setPassword(e)}
+                        onChangeText={(e) => setPassword(e)}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon

@@ -8,7 +8,7 @@ import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList } from "../types";
 
-type NavigationProp=NativeStackNavigationProp<RootStackParamList,'AddTodo'>
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>
 
 const AddTodo = () => {
     const navigation = useNavigation<NavigationProp>();

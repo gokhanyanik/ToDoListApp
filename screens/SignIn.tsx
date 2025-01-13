@@ -4,18 +4,22 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
+import { setEmail, setPassword } from "../redux/todoSlice";
+
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignIn'>
 
 const SignIn = () => {
     const navigation = useNavigation<NavigationProp>();
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const { email, password } = useSelector((state: RootState) => state.todo)
+    const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const handleSignIn = () => {
         if (email && password) {
-            navigation.navigate('HomeScreen' as never)
+            navigation.navigate('HomeScreen')
         } else {
             Alert.alert("hatali giriş")
         }
@@ -35,7 +39,7 @@ const SignIn = () => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
-                    onChangeText={(text) => setEmail(text)}
+                    onChangeText={(text) => dispatch(setEmail(text))}
                 />
                 <View style={styles.inputView}>
                     <TextInput
@@ -43,7 +47,7 @@ const SignIn = () => {
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
                         value={password?.toString()}
-                        onChangeText={(value) => setPassword(value)}
+                        onChangeText={(value) => dispatch(setPassword(value))}
                     />
                     <TouchableOpacity style={styles.icon} onPress={() => {
                         setIsPasswordVisible(!isPasswordVisible);

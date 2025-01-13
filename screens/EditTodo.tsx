@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RootStackParamList } from "../types";
 import { useDispatch, useSelector } from "react-redux";
-import { Todo,setTodos } from "../redux/todoSlice";
+import { Todo, setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
@@ -13,28 +13,25 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
 const EditTodo = ({ route }: { route: any }) => {
     const navigation = useNavigation<NavigationProp>();
     const todos = useSelector((state: RootState) => state.todo.todos)
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const todoId = route.params?.todoId
-         console.log("edittodo daki todoId: ", todoId)
     const todo = todos.find((t) => t.id === todoId);
-         console.log("silmeden önce seçilen id li todo : ", todo)
     const todoTitle = todo?.title; // Dizinin boş olup olmadığını kontrol et.
     const todoDescription = todo?.description;
-    
-    
-    const [showPicker,setShowPicker]=useState(false)
-    const [deadline,setDeadLine]=useState('')
-    const [title,setTitle]=useState('')
-    const [description,setDescription]=useState('')
+
+    const [showPicker, setShowPicker] = useState(false)
+    const [deadline, setDeadLine] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
     const onChange = (event: any, selectedDate?: Date): void => {
         const currentDate = selectedDate || deadline.toLocaleString();
         setShowPicker(false);  // Picker'ı kapat
-       setDeadLine(currentDate.toLocaleString());  //Seçilen tarihi state'e kaydet
+        setDeadLine(currentDate.toLocaleString());  //Seçilen tarihi state'e kaydet
     };
     const handleEditTodo = (): void => {
         const updatedTodos = todos.map(todo =>
             todo.id === todoId
-                ? { ...todo, title, description, deadline:  deadline.toString()  }
+                ? { ...todo, title, description, deadline: deadline.toString() }
                 : todo
         );
         dispatch(setTodos(updatedTodos));
@@ -59,7 +56,7 @@ const EditTodo = ({ route }: { route: any }) => {
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>
-                <Text style={styles.deadlineText}>  {todo?.deadline?.toString()} {/* Örneğin, MM/DD/YYYY formatı */}</Text>
+                <Text style={styles.deadlineText}>  {todo?.deadline?.toString()}</Text>
                 {/*Deadline seçimi butonu */}
                 <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
                     <Image

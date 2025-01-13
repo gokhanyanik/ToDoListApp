@@ -12,7 +12,6 @@ const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp>();
     const { todos } = useSelector((state: RootState) => state.todo)  //redux store dan todos değerine ulaşıyoruz.Burada state.todo daki todo storeda reducer'a verilen ad
     
-    console.log(todos)
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>

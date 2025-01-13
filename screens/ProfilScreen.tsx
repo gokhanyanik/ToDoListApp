@@ -3,11 +3,14 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from "../types";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-type NavigationProp=NativeStackNavigationProp<RootStackParamList,'ProfilScreen'>
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProfilScreen'>
 const ProfilScreen = () => {
     const navigation = useNavigation<NavigationProp>();
-  
+    const {fullName,email,password} = useSelector((state: RootState) => state.todo)
+
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -33,15 +36,15 @@ const ProfilScreen = () => {
             <View style={styles.containerThird}>
                 <View style={styles.textView}>
                     <Text style={styles.textInfo}>Full Name </Text>
-                    <Text style={styles.textUserName}>Devin L.Walker </Text>
+                    <Text style={styles.textUserName}>{fullName} </Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.textInfo}>Email </Text>
-                    <Text style={styles.textUser}>DevinWaller17@gmail.com </Text>
+                    <Text style={styles.textUser}>{email} </Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.textInfo}>Password </Text>
-                    <Text style={styles.textUser}>Change Password </Text>
+                    <Text style={styles.textUser}>{password} </Text>
                 </View>
             </View>
             <TouchableOpacity style={styles.logoutClick} onPress={() => navigation.navigate('SignIn')}>
