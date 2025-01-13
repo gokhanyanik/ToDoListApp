@@ -7,6 +7,7 @@ import { RootStackParamList } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setEmail, setPassword } from "../redux/todoSlice";
+import { validateUser } from "../database/database";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignIn'>
@@ -17,13 +18,18 @@ const SignIn = () => {
     const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    const handleSignIn = () => {
-        if (email && password) {
-            navigation.navigate('HomeScreen')
-        } else {
-            Alert.alert("hatali giriş")
+    const handleSignIn = async () => {
+        try {
+          const isValidUser = await validateUser(email, password);
+          if (isValidUser) {
+            navigation.navigate("HomeScreen"); // HomeScreen'e yönlendir
+          } else {
+            Alert.alert("Giriş Hatası", "E-posta veya şifre yanlış.");
+          }
+        } catch (error) {
+          Alert.alert("Hata", "Giriş sırasında bir hata oluştu.");
         }
-    }
+      };
     return (
         <View style={styles.main}>
             <View style={styles.todolistImage}>

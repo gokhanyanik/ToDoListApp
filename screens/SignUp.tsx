@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,6 +7,7 @@ import { RootStackParamList } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setFullName, setEmail, setPassword } from "../redux/todoSlice";
+import { addUser } from "../database/database";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
@@ -21,6 +22,16 @@ const SignUp = () => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+
+    const handleSignup = async () => {
+        try {
+          await addUser(email, password); // Kullanıcıyı veritabanına ekle
+          Alert.alert("Kayıt Başarılı", "Giriş yapabilirsiniz.");
+          navigation.navigate("SignIn"); // Giriş ekranına yönlendir
+        } catch (error) {
+          Alert.alert("Hata", "Kayıt sırasında bir hata oluştu. E-posta zaten alınmış olabilir.");
+        }
+      };
     return (
         <View style={styles.main}>
             <View style={styles.todolistViewImage}>
@@ -76,7 +87,7 @@ const SignUp = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn')}>
+                <TouchableOpacity style={styles.touchable} onPress={handleSignup}>
                     <Text style={styles.textSignUp}>SIGN UP</Text>
                 </TouchableOpacity>
                 <View style={styles.questionView}>

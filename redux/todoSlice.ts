@@ -11,14 +11,14 @@ export interface TodoApp {
     todos: Todo[];
     fullName:string;
     email:string;
-    password:number|null;
+    password:string;
 }
 
 const initialState: TodoApp = {
     todos: [],
     fullName:'',
     email:'',
-    password:null,
+    password:'',
 
 }
 
