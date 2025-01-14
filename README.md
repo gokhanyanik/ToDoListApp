@@ -1,1 +1,1 @@
-"˜lk ToDoList uygulamam" 
+"Ä±lk ToDoList uygulamam" 
