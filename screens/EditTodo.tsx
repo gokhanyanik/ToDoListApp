@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RootStackParamList } from "../types";
 import { useDispatch, useSelector } from "react-redux";
-import { Todo, setTodos } from "../redux/todoSlice";
+import { setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
@@ -89,11 +89,17 @@ const EditTodo = ({ route }: { route: any }) => {
     )
 }
 const styles = StyleSheet.create({
-    container: {
+    _container: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#FF8A80',
+    },
+    get container() {
+        return this._container;
+    },
+    set container(value) {
+        this._container = value;
     },
     title: {
         fontSize: 24,

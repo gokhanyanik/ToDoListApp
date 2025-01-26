@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -8,6 +9,7 @@ import { RootState } from "../redux/store";
 import { setTodos } from "../redux/todoSlice";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailTodo = ({ route }: { route: any }) => {
     const navigation = useNavigation<NavigationProp>()
     const todoId = route.params?.todoId
@@ -30,6 +32,7 @@ const DetailTodo = ({ route }: { route: any }) => {
                     onPress={() => navigation.goBack()}
                 >
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/solok.png')}
                         style={styles.solokImage}
                     />
@@ -40,6 +43,7 @@ const DetailTodo = ({ route }: { route: any }) => {
                     >
                         <TouchableOpacity>
                             <Image
+                                // eslint-disable-next-line @typescript-eslint/no-require-imports
                                 source={require('../assets/images/saat.png')}
                                 style={styles.deadlineImage}
                             />

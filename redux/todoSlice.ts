@@ -9,16 +9,18 @@ export interface Todo {
 export interface TodoApp {
 
     todos: Todo[];
-    fullName:string;
-    email:string;
-    password:string;
+    fullName: string;
+    email: string;
+    password: string;
+    id: number | null;
 }
 
 const initialState: TodoApp = {
     todos: [],
-    fullName:'',
-    email:'',
-    password:'',
+    fullName: '',
+    email: '',
+    password: '',
+    id: null
 
 }
 
@@ -30,19 +32,19 @@ export const todoSlice = createSlice({
         setTodos: (state, action) => {
             state.todos = action.payload
         },
-        setFullName:(state,action)=>{
+        setFullName: (state, action) => {
             state.fullName = action.payload
         },
-        setEmail:(state,action)=>{
-            state.email=action.payload
+        setEmail: (state, action) => {
+            state.email = action.payload
         },
-        setPassword:(state,action)=>{
-            state.password=action.payload
+        setPassword: (state, action) => {
+            state.password = action.payload
         },
-        
+
     }
 })
 
 
-export const { setTodos ,setFullName,setEmail,setPassword} = todoSlice.actions
+export const { setTodos, setFullName, setEmail, setPassword } = todoSlice.actions
 export default todoSlice.reducer

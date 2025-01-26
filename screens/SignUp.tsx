@@ -25,17 +25,19 @@ const SignUp = () => {
 
     const handleSignup = async () => {
         try {
-          await addUser(email, password); // Kullanıcıyı veritabanına ekle
-          Alert.alert("Kayıt Başarılı", "Giriş yapabilirsiniz.");
-          navigation.navigate("SignIn"); // Giriş ekranına yönlendir
+            await addUser(email, password); // Kullanıcıyı veritabanına ekle
+            Alert.alert("Kayıt Başarılı", "Giriş yapabilirsiniz.");
+            navigation.navigate("SignIn"); // Giriş ekranına yönlendir
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-          Alert.alert("Hata", "Kayıt sırasında bir hata oluştu. E-posta zaten alınmış olabilir.");
+            Alert.alert("Hata", "Kayıt sırasında bir hata oluştu. E-posta zaten alınmış olabilir.");
         }
-      };
+    };
     return (
         <View style={styles.main}>
             <View style={styles.todolistViewImage}>
                 <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
                     source={require('../assets/images/todolistSignIn.png')}
                     style={styles.image}
                 />

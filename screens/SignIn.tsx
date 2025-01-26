@@ -26,6 +26,7 @@ const SignIn = () => {
           } else {
             Alert.alert("Giriş Hatası", "E-posta veya şifre yanlış.");
           }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           Alert.alert("Hata", "Giriş sırasında bir hata oluştu.");
         }
@@ -34,6 +35,7 @@ const SignIn = () => {
         <View style={styles.main}>
             <View style={styles.todolistImage}>
                 <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
                     source={require('../assets/images/todolistSignIn.png')}
                     style={styles.image}
                 />

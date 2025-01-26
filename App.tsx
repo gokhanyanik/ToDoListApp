@@ -11,7 +11,7 @@ import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
 import ProfilScreen from './screens/ProfilScreen';
 import ForgotPassword from './screens/ForgotPassword';
-import { createUserTable } from './database/database';
+import { createUserTable ,createTodoTable} from './database/database';
 
 
 
@@ -21,6 +21,7 @@ function App(): React.JSX.Element {
   
   useEffect(() => {
     createUserTable(); // Kullanıcı tablosunu oluştur
+    createTodoTable();  // 
   }, []);
   
   return (

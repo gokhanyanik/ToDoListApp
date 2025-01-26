@@ -1,28 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { setTodos } from "../redux/todoSlice";
+import { getTodos } from "../database/database";
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeScreen' >;// bu tip tanımlaması aşağıda navigation içerisindeki proplar için
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;// bu tip tanımlaması aşağıda navigation içerisindeki proplar için
 
 const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp>();
     const { todos } = useSelector((state: RootState) => state.todo)  //redux store dan todos değerine ulaşıyoruz.Burada state.todo daki todo storeda reducer'a verilen ad
+    console.log("todos değeri :" + todos)
+    // const [todos, setTodos] = useState([]); // Todo listesi
+    const [loading, setLoading] = useState(true); // Yüklenme durumu
+    // Veritabanından verileri çeken fonksiyon
+    const fetchTodos = async () => {
+        try {
+          const todos = await getTodos();
+          setTodos(todos)
+          console.log("Fetched Todos:", todos);
+        } catch (error) {
+          console.error("Failed to fetch Todos:", error);
+        }
+      };
+    // Sayfa yüklendiğinde todos listesini getir
+    useEffect(() => {
+        fetchTodos();
+    }, []);
+
     
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
                 <TouchableOpacity style={styles.touchableStyle} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/todolistProfilScreen.png')}
                         style={styles.todolistIkonImage}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.touchableStyle} onPress={() => navigation.navigate('ProfilScreen')}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/ayarlarIkonProfilScreen.png')}
                         style={styles.optionIkonImage}
                     />
@@ -31,16 +53,19 @@ const HomeScreen = () => {
             <View style={styles.containerSecond}>
                 <TouchableOpacity style={styles.touchableContainer} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/todo.png')}
                         style={styles.todoImage}
                     />
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/listof1.png')}
                         style={styles.listofImage}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.touchableStyle} onPress={() => console.log("ayarlarIkonProfilScreen")}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/filtre.png')}
                         style={styles.filtreImage}
                     />
@@ -48,7 +73,7 @@ const HomeScreen = () => {
             </View>
             <FlatList
                 data={todos}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.flatlistView}>
 
@@ -58,7 +83,7 @@ const HomeScreen = () => {
                         >
                             <Text style={styles.flatlistTextTitle}>{item.title}</Text>
                             <Text style={styles.flatlistTextDescription}>{item.description}</Text>
-                            <Text style={styles.flatlistTextDeadline}>{item.deadline.toString()}</Text>
+                            <Text style={styles.flatlistTextDeadline}> {new Date(item.deadline).toLocaleDateString()}</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -68,6 +93,7 @@ const HomeScreen = () => {
                 onPress={() => navigation.navigate('AddTodo')}
             >
                 <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
                     source={require('../assets/images/ekle.png')}
                     style={styles.ekleImage}
                 />

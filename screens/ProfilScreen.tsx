@@ -16,12 +16,14 @@ const ProfilScreen = () => {
             <View style={styles.containerFirst}>
                 <TouchableOpacity style={styles.optionTouchable} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/todolistProfilScreen.png')}
                         style={styles.todolistImage}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionTouchable} onPress={() => console.log("ayarlarIkonProfilScreen")}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/ayarlarIkonProfilScreen.png')}
                         style={styles.optionIkonImage}
                     />
@@ -29,6 +31,7 @@ const ProfilScreen = () => {
             </View>
             <View style={styles.containerSecond}>
                 <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
                     source={require('../assets/images/ProfilScreen.png')}
                     style={styles.profilscreenImage}
                 />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -7,28 +7,41 @@ import { setTodos, Todo } from "../redux/todoSlice"
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList } from "../types";
+import { addTodo } from "../database/database";
+
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>
 
 const AddTodo = () => {
     const navigation = useNavigation<NavigationProp>();
-    const todos = useSelector((state: RootState) => state.todo.todos);
+    const {todos,id}= useSelector((state: RootState) => state.todo);
+
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')//burada deadline string olarak tutuluyor ancak aşağıda kullanıldıgında tekrar date' cevirilicek
+    console.log("title: "+title)
+    console.log("desciption: "+description)
     const [deadline, setDeadLine] = useState('')
+    console.log("deadline :"+deadline)
     const [showPicker, setShowPicker] = useState(false);
     const onChange = (selectedDate?: Date): void => {
         const currentDate = selectedDate ? selectedDate : deadline.toLocaleString();  //deadline date cevirildi
         setShowPicker(false);
         setDeadLine(currentDate.toLocaleString());
     };
-    const handleAddTodo = (): void => {
-        const newTodo: Todo = { title, description, deadline, id: Date.now() };
-        dispatch(setTodos([...todos, newTodo]));
+    const handleAddTodo = async () => {
+            try {
+          //      const deadline=new Date().toISOString()
+                await addTodo( title, description,deadline); // Kullanıcıyı veritabanına ekle
+                console.log("deadline :"+deadline)
+                Alert.alert("Todo Basariyla eklnedi...");
+                navigation.navigate("HomeScreen"); // Giriş ekranına yönlendir
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            } catch (error) {
+                Alert.alert("Hata", "Todo Ekleme islemi basarisiz...."+error);
+            }
+        };
 
-        navigation.navigate('HomeScreen');
-    }
     return (
         <View style={styles.container}>
             <TextInput
@@ -51,6 +64,7 @@ const AddTodo = () => {
                 {/*Deadline seçimi butonu */}
                 <TouchableOpacity style={styles.buttonDeadline} onPress={() => setShowPicker(true)}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/deadLine.png')}
                     />
                 </TouchableOpacity>
@@ -69,6 +83,7 @@ const AddTodo = () => {
                 {/*Image seçimi butonu */}
                 <TouchableOpacity style={[styles.buttonDeadline, { left: 80 }]} onPress={() => console.log("image eklenicek")}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/image.png')}
                     />
                 </TouchableOpacity>

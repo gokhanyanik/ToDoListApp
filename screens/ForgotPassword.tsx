@@ -18,6 +18,7 @@ const ForgotPassword = () => {
         <View style={styles.main}>
             <View style={styles.todolistImageView}>
                 <Image
+                    // eslint-disable-next-line @typescript-eslint/no-require-imports
                     source={require('../assets/images/todolistSignIn.png')}
                     style={styles.image}
                 />
