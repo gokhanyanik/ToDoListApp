@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,6 +10,8 @@ import { setFullName, setEmail, setPassword } from "../redux/todoSlice";
 import { addUser } from "../database/database";
 import Toast from "react-native-toast-message";
 
+
+
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
 
 const SignUp = () => {
@@ -18,7 +20,7 @@ const SignUp = () => {
     const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('')
-
+    const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
@@ -27,91 +29,113 @@ const SignUp = () => {
         try {
             await addUser(email, password); // Kullanıcıyı veritabanına ekle
             Toast.show({
-                type:"success",
-                text1:"kayit basarili..."
+                type: "success",
+                text1: "kayit basarili..."
             })
             navigation.replace("SignIn"); // Giriş ekranına yönlendir
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             Toast.show({
-                type:"error",
-                text1:"kayit sirasında hata olustu...",
-                text2:`Kullanıcı adi ya da sifre hatali...${error}`
+                type: "error",
+                text1: "kayit sirasında hata olustu...",
+                text2: `Kullanıcı adi ya da sifre hatali...${error}`
             })
         }
     };
     return (
-        <View style={styles.main}>
-            <View style={styles.todolistViewImage}>
-                <Image
-                    // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../assets/images/todolistSignIn.png')}
-                    style={styles.image}
-                />
-            </View>
-            <View style={styles.container}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    value={email}
-                    onChangeText={(email) => dispatch(setEmail(email))}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Full Name"
-                    value={fullName}
-                    onChangeText={(fullName) => dispatch(setFullName(fullName))}
-                />
-                <View style={styles.inputView}>
-                    <TextInput
-                        style={styles.inputPassword}
-                        placeholder="Password"
-                        secureTextEntry={!isPasswordVisible}
-                        value={password?.toString()}
-                        onChangeText={(password) => dispatch(setPassword(password))}
-                    />
-                    <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
-                        <Icon
-                            name={isPasswordVisible ? "eye-off" : "eye"} // Şifre görünürlüğüne göre simge değişir
-                            size={24}
-                            color="gray"
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"} // iOS için padding
+        >
+            <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}
+                onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
+                onBlur={() => setIsKeyboardVisible(false)} // Klavye kapandığında
+            >
+                <View style={styles.main} >
+
+
+                    <View style={[styles.todolistViewImage, isKeyboardVisible && { height: 0 },]}>
+                        <Image
+                            // eslint-disable-next-line @typescript-eslint/no-require-imports
+                            source={require('../assets/images/todolistSignIn.png')}
+                            style={styles.image}
+
                         />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.inputView}>
-                    <TextInput
-                        style={styles.inputPassword}
-                        placeholder="Comfirm Password"
-                        secureTextEntry={!isPasswordVisible}
-                        value={confirmPassword}
-                        onChangeText={(text) => setConfirmPassword(text)}
-                    />
-                    <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
-                        <Icon
-                            name={isPasswordVisible ? "eye-off" : "eye"} // Şifre görünürlüğüne göre simge değişir
-                            size={24}
-                            color="gray"
+                    </View>
+                    <View style={styles.container}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            value={email}
+                            onChangeText={(email) => dispatch(setEmail(email))}
+                            onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
+                            onBlur={() => setIsKeyboardVisible(false)} // Klavye kapandığında
                         />
-                    </TouchableOpacity>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Full Name"
+                            value={fullName}
+                            onChangeText={(fullName) => dispatch(setFullName(fullName))}
+                            onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
+                            onBlur={() => setIsKeyboardVisible(false)} // Klavye kapandığında
+                        />
+                        <View style={styles.inputView}>
+                            <TextInput
+                                style={styles.inputPassword}
+                                placeholder="Password"
+                                secureTextEntry={!isPasswordVisible}
+                                value={password?.toString()}
+                                onChangeText={(password) => dispatch(setPassword(password))}
+                                onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
+                                onBlur={() => setIsKeyboardVisible(false)} // Klavye kapandığında
+                            />
+                            <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
+                                <Icon
+                                    name={isPasswordVisible ? "eye-off" : "eye"} // Şifre görünürlüğüne göre simge değişir
+                                    size={24}
+                                    color="gray"
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.inputView}>
+                            <TextInput
+                                style={styles.inputPassword}
+                                placeholder="Comfirm Password"
+                                secureTextEntry={!isPasswordVisible}
+                                value={confirmPassword}
+                                onChangeText={(text) => setConfirmPassword(text)}
+                                onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
+                                onBlur={() => setIsKeyboardVisible(false)} // Klavye kapandığında
+                            />
+                            <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
+                                <Icon
+                                    name={isPasswordVisible ? "eye-off" : "eye"} // Şifre görünürlüğüne göre simge değişir
+                                    size={24}
+                                    color="gray"
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity style={styles.touchable} onPress={handleSignup}>
+                            <Text style={styles.textSignUp}>SIGN UP</Text>
+                        </TouchableOpacity>
+                        <View style={styles.questionView}>
+                            <Text>Have an account? </Text>
+                            <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate('SignIn')}>
+                                <Text style={styles.loginText}>LOG IN</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={handleSignup}>
-                    <Text style={styles.textSignUp}>SIGN UP</Text>
-                </TouchableOpacity>
-                <View style={styles.questionView}>
-                    <Text>Have an account? </Text>
-                    <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate('SignIn')}>
-                        <Text style={styles.loginText}>LOG IN</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 const styles = StyleSheet.create({
     main: {
-        flex: 1
+        flex: 1,
     },
     container: {
         flex: 1,
@@ -122,7 +146,7 @@ const styles = StyleSheet.create({
     todolistViewImage: {
         justifyContent: "flex-start",
         alignItems: "center",
-        margin: 50
+        margin: 50,
     },
     image: {
         width: 200,
