@@ -27,7 +27,7 @@ const SignUp = () => {
         try {
             await addUser(email, password); // Kullanıcıyı veritabanına ekle
             Alert.alert("Kayıt Başarılı", "Giriş yapabilirsiniz.");
-            navigation.navigate("SignIn"); // Giriş ekranına yönlendir
+            navigation.replace("SignIn"); // Giriş ekranına yönlendir
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             Alert.alert("Hata", "Kayıt sırasında bir hata oluştu. E-posta zaten alınmış olabilir.");

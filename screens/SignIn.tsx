@@ -22,7 +22,7 @@ const SignIn = () => {
         try {
           const isValidUser = await validateUser(email, password);
           if (isValidUser) {
-            navigation.navigate("HomeScreen"); // HomeScreen'e yönlendir
+            navigation.replace("HomeScreen"); // HomeScreen'e yönlendir
           } else {
             Alert.alert("Giriş Hatası", "E-posta veya şifre yanlış.");
           }
