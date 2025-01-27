@@ -10,7 +10,9 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProfilScree
 const ProfilScreen = () => {
     const navigation = useNavigation<NavigationProp>();
     const {fullName,email,password} = useSelector((state: RootState) => state.todo)
-
+const maskPasword=(password:string):string=>{
+    return "*".repeat(password.length)//şifre uzunluğu kadar yıldız ekler
+}
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -47,7 +49,7 @@ const ProfilScreen = () => {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.textInfo}>Password </Text>
-                    <Text style={styles.textUser}>{password} </Text>
+                    <Text style={styles.textUser}>{maskPasword(password)} </Text>
                 </View>
             </View>
             <TouchableOpacity style={styles.logoutClick} onPress={() => navigation.navigate('SignIn')}>
