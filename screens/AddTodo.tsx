@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert, BackHandler } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -15,6 +15,18 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>
 const AddTodo = () => {
     const navigation = useNavigation<NavigationProp>();
     const {todos,id}= useSelector((state: RootState) => state.todo);
+
+    useEffect(() => {
+        const backAction = () => {
+          // Geri tuşuna basıldığında "HomeScreen"e yönlendirme
+          navigation.navigate("HomeScreen");
+          return true; // Varsayılan geri tuşu davranışını engelle
+        };
+    
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+    
+        return () => backHandler.remove(); // Component unmount olduğunda listener'ı temizle
+      }, [navigation]);
 
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
