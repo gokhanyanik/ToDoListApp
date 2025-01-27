@@ -12,6 +12,7 @@ import EditTodo from './screens/EditTodo';
 import ProfilScreen from './screens/ProfilScreen';
 import ForgotPassword from './screens/ForgotPassword';
 import { createUserTable ,createTodoTable} from './database/database';
+import Toast from "react-native-toast-message";
 
 
 
@@ -37,6 +38,7 @@ function App(): React.JSX.Element {
           <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         </Stack.Navigator>
+        <Toast/>
       </NavigationContainer>
     </Provider>
 

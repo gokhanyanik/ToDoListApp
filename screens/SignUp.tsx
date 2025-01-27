@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setFullName, setEmail, setPassword } from "../redux/todoSlice";
 import { addUser } from "../database/database";
-
+import Toast from "react-native-toast-message";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
 
@@ -26,11 +26,18 @@ const SignUp = () => {
     const handleSignup = async () => {
         try {
             await addUser(email, password); // Kullanıcıyı veritabanına ekle
-            Alert.alert("Kayıt Başarılı", "Giriş yapabilirsiniz.");
+            Toast.show({
+                type:"success",
+                text1:"kayit basarili..."
+            })
             navigation.replace("SignIn"); // Giriş ekranına yönlendir
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-            Alert.alert("Hata", "Kayıt sırasında bir hata oluştu. E-posta zaten alınmış olabilir.");
+            Toast.show({
+                type:"error",
+                text1:"kayit sirasında hata olustu...",
+                text2:`Kullanıcı adi ya da sifre hatali...${error}`
+            })
         }
     };
     return (

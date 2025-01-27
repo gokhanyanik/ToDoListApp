@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setEmail, setPassword } from "../redux/todoSlice";
 import { validateUser } from "../database/database";
-
+import Toast from "react-native-toast-message";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignIn'>
 
@@ -24,11 +24,18 @@ const SignIn = () => {
           if (isValidUser) {
             navigation.replace("HomeScreen"); // HomeScreen'e yönlendir
           } else {
-            Alert.alert("Giriş Hatası", "E-posta veya şifre yanlış.");
+            Toast.show({
+                type:"error",
+                text1:"Giriş Hatası : E-posta veya şifre yanlış."
+            })
+           
           }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-          Alert.alert("Hata", "Giriş sırasında bir hata oluştu.");
+            Toast.show({
+                type:"error",
+                text1:"Giriş sırasında hata olustu..."
+            })
         }
       };
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, BackHandler } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -8,6 +8,7 @@ import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList } from "../types";
 import { addTodo } from "../database/database";
+import Toast from "react-native-toast-message";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>
@@ -46,11 +47,19 @@ const AddTodo = () => {
           //      const deadline=new Date().toISOString()
                 await addTodo( title, description,deadline); // Kullanıcıyı veritabanına ekle
                 console.log("deadline :"+deadline)
-                Alert.alert("Todo Basariyla eklnedi...");
+                Toast.show({
+                    type:"success",
+                    text1:"Todo basari ile eklendi",
+                    text2:"Listeye yönlendirliyorsunuz 👌"
+                });
                 navigation.navigate("HomeScreen"); // Giriş ekranına yönlendir
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (error) {
-                Alert.alert("Hata", "Todo Ekleme islemi basarisiz...."+error);
+                Toast.show({
+                    type:"error",
+                    text1:"Hata",
+                    text2:`Todo ekleme işlemi başarisiz: ${error}`
+                })
             }
         };
 
