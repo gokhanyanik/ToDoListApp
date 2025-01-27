@@ -19,19 +19,20 @@ const HomeScreen = () => {
     // Veritabanından verileri çeken fonksiyon
     const fetchTodos = async () => {
         try {
-          const todos = await getTodos();
-          setTodos(todos)
-          console.log("Fetched Todos:", todos);
+            const todos = await getTodos();
+            setTodos(todos)
+            console.log("Fetched Todos:", todos);
         } catch (error) {
-          console.error("Failed to fetch Todos:", error);
+            console.error("Failed to fetch Todos:", error);
         }
-      };
+    };
+
     // Sayfa yüklendiğinde todos listesini getir
     useEffect(() => {
         fetchTodos();
     }, []);
 
-    
+
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -63,7 +64,7 @@ const HomeScreen = () => {
                         style={styles.listofImage}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.touchableStyle} onPress={() => console.log("ayarlarIkonProfilScreen")}>
+                <TouchableOpacity style={styles.touchableStyle} onPress={() => console.log("ayarlarIkonProfilScreen")} disabled={todos.length > 1 ? false : true}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
                         source={require('../assets/images/filtre.png')}
