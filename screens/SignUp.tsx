@@ -32,6 +32,8 @@ const SignUp = () => {
                 type: "success",
                 text1: "kayit basarili..."
             })
+            dispatch(setEmail(''))  // Kayıt tamamlandıktan sonra setEmaili ve setPasswordu temizliyoruz.
+            dispatch(setPassword(''))
             navigation.replace("SignIn"); // Giriş ekranına yönlendir
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
