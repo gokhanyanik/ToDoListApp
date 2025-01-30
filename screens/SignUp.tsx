@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, KeyboardAvo
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RootStackParamList } from "../types";
+import { RootStackParamList,Screens } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setFullName, setEmail, setPassword } from "../redux/todoSlice";
@@ -82,7 +82,7 @@ const SignUp = () => {
                               resetForm();
                         
                               // Giriş ekranına yönlendir
-                              navigation.replace("SignIn");
+                              navigation.replace(Screens.SignIn);
                             } catch (error) {
                               Toast.show({
                                 type: "error",
@@ -161,7 +161,7 @@ const SignUp = () => {
                                 </TouchableOpacity>
                                 <View style={styles.questionView}>
                                     <Text>Have an account? </Text>
-                                    <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate('SignIn')}>
+                                    <TouchableOpacity style={styles.loginTouchable} onPress={() => navigation.navigate(Screens.SignIn)}>
                                         <Text style={styles.loginText}>LOG IN</Text>
                                     </TouchableOpacity>
                                 </View>

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from "../types";
+import { RootStackParamList ,Screens} from "../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
@@ -52,7 +52,7 @@ const maskPasword=(password:string):string=>{
                     <Text style={styles.textUser}>{maskPasword(password)} </Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.logoutClick} onPress={() => navigation.navigate('SignIn')}>
+            <TouchableOpacity style={styles.logoutClick} onPress={() => navigation.navigate(Screens.SignIn)}>
                 <Text style={styles.clickText}>LOG OUT</Text>
             </TouchableOpacity>
         </View>

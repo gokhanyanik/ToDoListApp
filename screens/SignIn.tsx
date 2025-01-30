@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, KeyboardAvo
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../types";
+import { RootStackParamList ,Screens } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setEmail, setPassword } from "../redux/todoSlice";
@@ -47,7 +47,7 @@ const SignIn = () => {
                         try {
                             const isValidUser = await validateUser(email, password);
                             if (isValidUser) {
-                                navigation.replace("HomeScreen"); // HomeScreen'e yönlendir
+                                navigation.replace(Screens.Home); // HomeScreen'e yönlendir
                             } else {
                                 Toast.show({
                                     type: "error",
@@ -111,7 +111,7 @@ const SignIn = () => {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.forgotpasswordTextView}>
-                                    <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
+                                    <TouchableOpacity onPress={() => navigation.navigate(Screens.Forgot)}>
                                         <Text>Forgot Password?</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -121,7 +121,7 @@ const SignIn = () => {
 
                                 <View style={styles.questionView}>
                                     <Text>Don't have an account? </Text>
-                                    <TouchableOpacity style={styles.touchableSingUp} onPress={() => navigation.navigate('SignUp')}>
+                                    <TouchableOpacity style={styles.touchableSingUp} onPress={() => navigation.navigate(Screens.SignUp)}>
                                         <Text style={styles.textSignUp}>SIGN UP</Text>
                                     </TouchableOpacity>
                                 </View>

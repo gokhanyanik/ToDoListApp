@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList ,Screens } from "../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { setTodos } from "../redux/todoSlice";
@@ -80,7 +80,7 @@ const HomeScreen = () => {
 
                         <TouchableOpacity
                             style={styles.flatlistTouchable}
-                            onPress={() => navigation.navigate('DetailTodo', { todoId: item.id })}
+                            onPress={() => navigation.navigate(Screens.Details, { todoId: item.id })}
                         >
                             <Text style={styles.flatlistTextTitle}>{item.title}</Text>
                             <Text style={styles.flatlistTextDescription}>{item.description}</Text>
@@ -91,7 +91,7 @@ const HomeScreen = () => {
             />
             <TouchableOpacity
                 style={styles.ekleTouchableImage}
-                onPress={() => navigation.navigate('AddTodo')}
+                onPress={() => navigation.navigate(Screens.Add)}
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports

@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'reac
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RootStackParamList } from "../types";
+import { RootStackParamList,Screens } from "../types";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ForgotPassword'>
 const ForgotPassword = () => {
@@ -56,7 +56,7 @@ const ForgotPassword = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignIn')}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate(Screens.SignIn)}>
                     <Text style={styles.clickText}>CHANGE PASSWORD</Text>
                 </TouchableOpacity>
             </View>

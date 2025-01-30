@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'reac
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { RootStackParamList } from "../types";
+import { RootStackParamList ,Screens } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
@@ -35,7 +35,7 @@ const EditTodo = ({ route }: { route: any }) => {
                 : todo
         );
         dispatch(setTodos(updatedTodos));
-        navigation.navigate('HomeScreen');
+        navigation.navigate(Screens.Home);
     };
 
     return (

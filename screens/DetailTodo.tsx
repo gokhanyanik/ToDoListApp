@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from "../types";
+import { RootStackParamList ,Screens} from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setTodos } from "../redux/todoSlice";
@@ -22,7 +22,7 @@ const DetailTodo = ({ route }: { route: any }) => {
     const handleDeleteTodo = (id: number): void => {
         const filteredTodos = todos.todos.filter((todo) => todo.id !== id);
         dispatch(setTodos(filteredTodos));
-        navigation.navigate("HomeScreen");
+        navigation.navigate(Screens.Home);
     };
     return (
         <View style={styles.main}>
@@ -49,7 +49,7 @@ const DetailTodo = ({ route }: { route: any }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('EditTodo', { todoId })}>
+                            onPress={() => navigation.navigate(Screens.Edit, { todoId })}>
                             <Image
                                 source={require('../assets/images/düzenle.png')}
                                 style={styles.editImage}

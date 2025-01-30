@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { setTodos, Todo } from "../redux/todoSlice"
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, Screens } from "../types";
 import { addTodo } from "../database/database";
 import Toast from "react-native-toast-message";
 
@@ -20,7 +20,7 @@ const AddTodo = () => {
     useEffect(() => {
         const backAction = () => {
           // Geri tuşuna basıldığında "HomeScreen"e yönlendirme
-          navigation.navigate("HomeScreen");
+          navigation.navigate(Screens.Home);
           return true; // Varsayılan geri tuşu davranışını engelle
         };
     
@@ -52,7 +52,7 @@ const AddTodo = () => {
                     text1:"Todo basari ile eklendi",
                     text2:"Listeye yönlendirliyorsunuz 👌"
                 });
-                navigation.navigate("HomeScreen"); // Giriş ekranına yönlendir
+                navigation.navigate(Screens.Home); // Giriş ekranına yönlendir
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (error) {
                 Toast.show({

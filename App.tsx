@@ -13,6 +13,7 @@ import ProfilScreen from './screens/ProfilScreen';
 import ForgotPassword from './screens/ForgotPassword';
 import { createUserTable ,createTodoTable} from './database/database';
 import Toast from "react-native-toast-message";
+import { Screens } from './types';
 
 
 
@@ -28,15 +29,15 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <NavigationContainer >
-        <Stack.Navigator initialRouteName='SignUp'>
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-          <Stack.Screen name="AddTodo" component={AddTodo} />
-          <Stack.Screen name="DetailTodo" component={DetailTodo} />
-          <Stack.Screen name="EditTodo" component={EditTodo} />
-          <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Navigator initialRouteName={Screens.SignUp}>
+          <Stack.Screen name={Screens.SignIn} component={SignIn} />
+          <Stack.Screen name={Screens.SignUp} component={SignUp} />
+          <Stack.Screen name={Screens.Home} component={HomeScreen} />
+          <Stack.Screen name={Screens.Add} component={AddTodo} />
+          <Stack.Screen name={Screens.Details} component={DetailTodo} />
+          <Stack.Screen name={Screens.Edit} component={EditTodo} />
+          <Stack.Screen name={Screens.Profile} component={ProfilScreen} />
+          <Stack.Screen name={Screens.Forgot} component={ForgotPassword} />
         </Stack.Navigator>
         <Toast/>
       </NavigationContainer>

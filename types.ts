@@ -1,11 +1,14 @@
-/*
-export type Todo = {
-  id: number;
-  title: string;
-  description: string;
-  deadline: Date;
-};
-*/
+export enum Screens {
+  Home = "HomeScreen",
+  Add = "AddTodo",
+  Profile = "ProfileScreen",
+  Details = "DetailTodo",
+  SignIn ="SignIn",
+  SignUp="SignUp",
+  Edit="EditTodo",
+  Forgot="ForgotPassword"
+}
+
 
 export type RootStackParamList = {
 
