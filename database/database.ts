@@ -104,11 +104,14 @@ export const getTodos = (): Promise<any[]> => {
         `SELECT * FROM todos;`,
         [],
         (_, result) => {
-          // rows._array özelliğine erişim
-          const rows = result.rows as any; // Tipi genişlet
-          resolve(rows._array); // rows._array'deki verilere eriş
+          if (result.rows.length > 0){
+            resolve(result.rows.raw());  // Sqlite in içindeki verileri alıyoruz
+          } else{
+            resolve([]);// eğer veri yoksa boş dizi dön 
+          }
         },
         (_, error) => {
+          console.log("SQlite Hatası : ",error);
           reject(error);
         }
       );
@@ -116,7 +119,7 @@ export const getTodos = (): Promise<any[]> => {
   });
 };
 
-   
+
 
 
 
