@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
@@ -13,26 +13,21 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeScreen'
 const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp>();
     const { todos } = useSelector((state: RootState) => state.todo)  //redux store dan todos değerine ulaşıyoruz.Burada state.todo daki todo storeda reducer'a verilen ad
-    console.log(" redux store'daki todos değeri :" + todos)
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     // Veritabanından verileri çeken fonksiyon
     const fetchTodos = async () => {
         try {
             const todos = await getTodos()
-            console.log("Veritabanındaki todoslar:", todos);
             dispatch(setTodos(todos))  // redux store a veriyi ekle
-
         } catch (error) {
             console.error("Failed to fetch Todos:", error);
         }
     };
-
     // Sayfa yüklendiğinde todos listesini getir
     useEffect(() => {
         getTodos().then(data => console.log("SQlite veriler: ", data))
         fetchTodos();
     }, []);
-
 
     return (
         <View style={styles.main}>
@@ -78,7 +73,6 @@ const HomeScreen = () => {
                 keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.flatlistView}>
-
                         <TouchableOpacity
                             style={styles.flatlistTouchable}
                             onPress={() => navigation.navigate(Screens.Details, { todoId: item.id })}
@@ -204,4 +198,5 @@ const styles = StyleSheet.create({
         margin: 10
     }
 })
+
 export default HomeScreen;

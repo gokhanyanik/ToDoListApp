@@ -11,21 +11,18 @@ import DetailTodo from './screens/DetailTodo';
 import EditTodo from './screens/EditTodo';
 import ProfilScreen from './screens/ProfilScreen';
 import ForgotPassword from './screens/ForgotPassword';
-import { createUserTable ,createTodoTable} from './database/database';
+import { createUserTable, createTodoTable } from './database/database';
 import Toast from "react-native-toast-message";
 import { Screens } from './types';
 
-
-
 const Stack = createNativeStackNavigator()
-function App(): React.JSX.Element {
 
-  
+function App(): React.JSX.Element {
   useEffect(() => {
     createUserTable(); // Kullanıcı tablosunu oluştur
     createTodoTable();  // 
   }, []);
-  
+
   return (
     <Provider store={store}>
       <NavigationContainer >
@@ -39,10 +36,10 @@ function App(): React.JSX.Element {
           <Stack.Screen name={Screens.Profile} component={ProfilScreen} />
           <Stack.Screen name={Screens.Forgot} component={ForgotPassword} />
         </Stack.Navigator>
-        <Toast/>
+        <Toast />
       </NavigationContainer>
     </Provider>
-
   );
 }
+
 export default App;

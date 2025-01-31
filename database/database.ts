@@ -1,15 +1,13 @@
 import SQLite from "react-native-sqlite-storage";
-import { setTodos } from "../redux/todoSlice";
 //veritabanı bağlantısı açılır
 const db = SQLite.openDatabase(
   {
     name: "AppDatabase.db",
     location: "default",
   },
-/*  */() => console.log("Veritabani bağlantisi başarili!"),
+  () => console.log("Veritabani bağlantisi başarili!"),
   (error) => console.error("Veritabani bağlantisi başarisiz: ", error)
 );
-
 // Kullanıcılar tablosunu oluştur
 export const createUserTable = (): void => {
   db.transaction((tx) => {
@@ -25,8 +23,6 @@ export const createUserTable = (): void => {
     );
   });
 };
-
-
 export const createTodoTable = (): void => {
   db.transaction((tx) => {
     tx.executeSql(
@@ -50,7 +46,7 @@ export const addUser = (email: string, password: string): Promise<void> => {
         `INSERT INTO users (email, password) VALUES (?, ?);`,
         [email, password],
         () => resolve(),
-        (_, error) => reject(error)
+        (_, error) => reject(new Error("hata"))
       );
     });
   });
@@ -63,18 +59,13 @@ export const addTodo = (title: string, description: string, deadline: string): P
         `INSERT INTO todos (title,description,deadline) VALUES ( ?,?,?);`,
         [title, description, deadline],
         () => resolve(),
-        (_, error) => reject(error)
+        (_, error) => reject(new Error("hata"))
       );
     });
   });
 };
-
-
 // Kullanıcıyı doğrula
-export const validateUser = (
-  email: string,
-  password: string
-): Promise<boolean> => {
+export const validateUser = (email: string, password: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -87,15 +78,11 @@ export const validateUser = (
             resolve(false); // Kullanıcı bulunamadı
           }
         },
-        (_, error) => reject(error)
+        (_, error) => reject(new Error("hata"))
       );
     });
   });
 };
-
-
-
-
 // Tüm To-Do'ları okuma
 export const getTodos = (): Promise<any[]> => {
   return new Promise((resolve, reject) => {
@@ -104,15 +91,15 @@ export const getTodos = (): Promise<any[]> => {
         `SELECT * FROM todos;`,
         [],
         (_, result) => {
-          if (result.rows.length > 0){
+          if (result.rows.length > 0) {
             resolve(result.rows.raw());  // Sqlite in içindeki verileri alıyoruz
-          } else{
+          } else {
             resolve([]);// eğer veri yoksa boş dizi dön 
           }
         },
         (_, error) => {
-          console.log("SQlite Hatası : ",error);
-          reject(error);
+          console.log("SQlite Hatası : ", error);
+          reject(new Error('hata'));
         }
       );
     });

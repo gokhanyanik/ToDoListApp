@@ -3,39 +3,26 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, BackHandler
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { setTodos, Todo } from "../redux/todoSlice"
-import { RootState } from "../redux/store";
-import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList, Screens } from "../types";
 import { addTodo } from "../database/database";
 import Toast from "react-native-toast-message";
-
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>
 
 const AddTodo = () => {
     const navigation = useNavigation<NavigationProp>();
-    const {todos,id}= useSelector((state: RootState) => state.todo);
-
     useEffect(() => {
         const backAction = () => {
-          // Geri tuşuna basıldığında "HomeScreen"e yönlendirme
-          navigation.navigate(Screens.Home);
-          return true; // Varsayılan geri tuşu davranışını engelle
+            // Geri tuşuna basıldığında "HomeScreen"e yönlendirme
+            navigation.navigate(Screens.Home);
+            return true; // Varsayılan geri tuşu davranışını engelle
         };
-    
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
-    
         return () => backHandler.remove(); // Component unmount olduğunda listener'ı temizle
-      }, [navigation]);
-
-    const dispatch = useDispatch()
+    }, [navigation]);
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')//burada deadline string olarak tutuluyor ancak aşağıda kullanıldıgında tekrar date' cevirilicek
-    console.log("title: "+title)
-    console.log("desciption: "+description)
+    const [description, setDescription] = useState('')
     const [deadline, setDeadLine] = useState('')
-    console.log("deadline :"+deadline)
     const [showPicker, setShowPicker] = useState(false);
     const onChange = (selectedDate?: Date): void => {
         const currentDate = selectedDate ? selectedDate : deadline.toLocaleString();  //deadline date cevirildi
@@ -43,25 +30,22 @@ const AddTodo = () => {
         setDeadLine(currentDate.toLocaleString());
     };
     const handleAddTodo = async () => {
-            try {
-          //      const deadline=new Date().toISOString()
-                await addTodo( title, description,deadline); // Kullanıcıyı veritabanına ekle
-                console.log("deadline :"+deadline)
-                Toast.show({
-                    type:"success",
-                    text1:"Todo basari ile eklendi",
-                    text2:"Listeye yönlendirliyorsunuz 👌"
-                });
-                navigation.navigate(Screens.Home); // Giriş ekranına yönlendir
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            } catch (error) {
-                Toast.show({
-                    type:"error",
-                    text1:"Hata",
-                    text2:`Todo ekleme işlemi başarisiz: ${error}`
-                })
-            }
-        };
+        try {
+            await addTodo(title, description, deadline); // Kullanıcıyı veritabanına ekle
+            Toast.show({
+                type: "success",
+                text1: "Todo basari ile eklendi",
+                text2: "Listeye yönlendirliyorsunuz 👌"
+            });
+            navigation.navigate(Screens.Home); // Giriş ekranına yönlendir
+        } catch (error) {
+            Toast.show({
+                type: "error",
+                text1: "Hata",
+                text2: `Todo ekleme işlemi başarisiz: ${error}`
+            })
+        }
+    };
 
     return (
         <View style={styles.container}>

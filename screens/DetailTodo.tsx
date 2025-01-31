@@ -3,20 +3,19 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList ,Screens} from "../types";
+import { RootStackParamList, Screens } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setTodos } from "../redux/todoSlice";
+
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailTodo = ({ route }: { route: any }) => {
     const navigation = useNavigation<NavigationProp>()
     const todoId = route.params?.todoId
     const todos = useSelector((state: RootState) => state.todo)
     const dispatch = useDispatch()
     const todoNew = todos.todos.find((t) => t.id === todoId);
-    // İlk todo öğesini alalım. Eğer bir seçim yapılacaksa bu daha dinamik hale getirilebilir.
     const todoTitle = todoNew?.title; // Dizinin boş olup olmadığını kontrol et.
     const todoDescription = todoNew?.description; // Dizinin boş olup olmadığını kontrol et.
     const handleDeleteTodo = (id: number): void => {
@@ -24,6 +23,7 @@ const DetailTodo = ({ route }: { route: any }) => {
         dispatch(setTodos(filteredTodos));
         navigation.navigate(Screens.Home);
     };
+
     return (
         <View style={styles.main}>
             <View style={styles.container}>
@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     alertText: {
         margin: 20
     },
-
 })
 
 export default DetailTodo;

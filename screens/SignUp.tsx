@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, KeyboardAvo
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RootStackParamList,Screens } from "../types";
+import { RootStackParamList, Screens } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setFullName, setEmail, setPassword } from "../redux/todoSlice";
@@ -11,8 +11,6 @@ import { addUser } from "../database/database";
 import Toast from "react-native-toast-message";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
 
@@ -23,8 +21,6 @@ const SignUp = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('')
     const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-    const [email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
@@ -37,9 +33,6 @@ const SignUp = () => {
             .required("şifre alanı boş bırakılamaz"),
     });
 
-
-   
-
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
@@ -51,14 +44,11 @@ const SignUp = () => {
                 onBlur={() => setIsKeyboardVisible(false)} // Klavye kapandığında
             >
                 <View style={styles.main} >
-
-
                     <View style={[styles.todolistViewImage, isKeyboardVisible && { height: 0 },]}>
                         <Image
                             // eslint-disable-next-line @typescript-eslint/no-require-imports
                             source={require('../assets/images/todolistSignIn.png')}
                             style={styles.image}
-
                         />
                     </View>
                     <Formik
@@ -66,33 +56,25 @@ const SignUp = () => {
                         validationSchema={validationSchema}
                         onSubmit={async (values, { resetForm }) => {
                             try {
-                              await addUser(values.email, values.password); // Kullanıcıyı veritabanına ekle
-                        
-                              // Kullanıcıya başarı mesajı göster
-                              Toast.show({
-                                type: "success",
-                                text1: "Kayıt başarılı!"
-                              });
-                        
-                              // Redux store'u sıfırla (Email ve Password'ü temizle)
-                              setEmail("");
-                             setPassword("");
-                        
-                              // Form verilerini sıfırla
-                              resetForm();
-                        
-                              // Giriş ekranına yönlendir
-                              navigation.replace(Screens.SignIn);
+                                await addUser(values.email, values.password); // Kullanıcıyı veritabanına ekle      
+                                // Kullanıcıya başarı mesajı göster
+                                Toast.show({
+                                    type: "success",
+                                    text1: "Kayıt başarılı!"
+                                });                              
+                                setEmail("");    // Redux store'u sıfırla (Email ve Password'ü temizle)
+                                setPassword("");
+                                resetForm();         // Form verilerini sıfırla                                     
+                                navigation.replace(Screens.SignIn);   // Giriş ekranına yönlendir
                             } catch (error) {
-                              Toast.show({
-                                type: "error",
-                                text1: "Kayıt sırasında hata oluştu",
-                                text2: `Kullanıcı adı ya da şifre hatalı: ${error}`
-                              });
+                                Toast.show({
+                                    type: "error",
+                                    text1: "Kayıt sırasında hata oluştu",
+                                    text2: `Kullanıcı adı ya da şifre hatalı: ${error}`
+                                });
                             }
-                          }}
-                        >
-                    
+                        }}
+                    >
                         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                             <View style={styles.container}>
                                 <TextInput
@@ -101,9 +83,9 @@ const SignUp = () => {
                                     keyboardType="email-address"
                                     autoCapitalize="none"
                                     value={values.email}
-                                    onChangeText={(email)=>{handleChange("email")(email); setEmail(email)}}
+                                    onChangeText={(email) => { handleChange("email")(email); setEmail(email) }}
                                     onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
-                                    onBlur={() => {setIsKeyboardVisible(false);handleBlur("email")}} // Klavye kapandığında
+                                    onBlur={() => { setIsKeyboardVisible(false); handleBlur("email") }} // Klavye kapandığında
                                 />
                                 {touched.email && errors.email && (
                                     <Text style={styles.errorText}>{errors.email}</Text>
@@ -122,12 +104,12 @@ const SignUp = () => {
                                         placeholder="Password"
                                         secureTextEntry={!isPasswordVisible}
                                         value={values.password?.toString()}
-                                        onChangeText={(password)=>{handleChange("password")(password); setPassword(password)}}
+                                        onChangeText={(password) => { handleChange("password")(password); setPassword(password) }}
                                         onFocus={() => setIsKeyboardVisible(true)} // Klavye açıldığında
-                                        onBlur={() => {setIsKeyboardVisible(false);handleBlur("password")}} // Klavye kapandığında
+                                        onBlur={() => { setIsKeyboardVisible(false); handleBlur("password") }} // Klavye kapandığında
                                     />
-                                   {touched.password && errors.password && (
-                                        <Text style={{position: "absolute",left:10,top:40,justifyContent:"center",color:"red",paddingVertical:4}}>{errors.password}</Text>
+                                    {touched.password && errors.password && (
+                                        <Text style={{ position: "absolute", left: 10, top: 40, justifyContent: "center", color: "red", paddingVertical: 4 }}>{errors.password}</Text>
                                     )}
                                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                                         <Icon
@@ -136,7 +118,6 @@ const SignUp = () => {
                                             color="gray"
                                         />
                                     </TouchableOpacity>
-                                    
                                 </View>
                                 <View style={styles.inputView}>
                                     <TextInput
@@ -156,7 +137,7 @@ const SignUp = () => {
                                         />
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity style={styles.touchable} onPress={()=>handleSubmit()}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => handleSubmit()}>
                                     <Text style={styles.textSignUp}>SIGN UP</Text>
                                 </TouchableOpacity>
                                 <View style={styles.questionView}>
@@ -195,9 +176,9 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: "red",
-        marginBottom:5,
+        marginBottom: 5,
         alignSelf: "flex-start",
-        left:20   
+        left: 20
     },
     title: {
         fontSize: 24,
@@ -259,8 +240,6 @@ const styles = StyleSheet.create({
         color: "#FF8A80"
     }
 })
+
 export default SignUp;
 
-function handleChange(arg0: string) {
-    throw new Error("Function not implemented.");
-}

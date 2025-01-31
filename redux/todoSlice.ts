@@ -7,28 +7,23 @@ export interface Todo {
     deadline: string;
 };
 export interface TodoApp {
-
     todos: Todo[];
     fullName: string;
     email: string;
     password: string;
     id: number | null;
-}
-
+};
 const initialState: TodoApp = {
     todos: [],
     fullName: '',
     email: '',
     password: '',
     id: null
-
-}
-
+};
 export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: {
-
         setTodos: (state, action) => {
             state.todos = action.payload
         },
@@ -41,10 +36,8 @@ export const todoSlice = createSlice({
         setPassword: (state, action) => {
             state.password = action.payload
         },
-
     }
 })
-
 
 export const { setTodos, setFullName, setEmail, setPassword } = todoSlice.actions
 export default todoSlice.reducer

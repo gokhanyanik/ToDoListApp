@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, KeyboardAvo
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList ,Screens } from "../types";
+import { RootStackParamList, Screens } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { setEmail, setPassword } from "../redux/todoSlice";
@@ -73,7 +73,6 @@ const SignIn = () => {
                                 />
                             </View>
                             <View style={styles.container}>
-
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Email"
@@ -115,19 +114,16 @@ const SignIn = () => {
                                         <Text>Forgot Password?</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity style={styles.touchable} onPress={()=>handleSubmit()}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => handleSubmit()}>
                                     <Text style={styles.signinText}>SIGN IN</Text>
                                 </TouchableOpacity>
-
                                 <View style={styles.questionView}>
                                     <Text>Don't have an account? </Text>
                                     <TouchableOpacity style={styles.touchableSingUp} onPress={() => navigation.navigate(Screens.SignUp)}>
                                         <Text style={styles.textSignUp}>SIGN UP</Text>
                                     </TouchableOpacity>
                                 </View>
-
                             </View>
-
                         </View>
                     )}
                 </Formik>
@@ -226,4 +222,5 @@ const styles = StyleSheet.create({
         left: 20
     },
 })
+
 export default SignIn;

@@ -2,17 +2,17 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList ,Screens} from "../types";
+import { RootStackParamList, Screens } from "../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProfilScreen'>
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, Screens.Profile>
 const ProfilScreen = () => {
     const navigation = useNavigation<NavigationProp>();
-    const {fullName,email,password} = useSelector((state: RootState) => state.todo)
-const maskPasword=(password:string):string=>{
-    return "*".repeat(password.length)//şifre uzunluğu kadar yıldız ekler
-}
+    const { fullName, email, password } = useSelector((state: RootState) => state.todo)
+    const maskPasword = (password: string): string => {
+        return "*".repeat(password.length)//şifre uzunluğu kadar yıldız ekler
+    }
     return (
         <View style={styles.main}>
             <View style={styles.containerFirst}>
@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 20
     },
-
 })
 
 export default ProfilScreen;

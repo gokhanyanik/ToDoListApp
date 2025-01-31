@@ -1,7 +1,7 @@
 export enum Screens {
   Home = "HomeScreen",
   Add = "AddTodo",
-  Profile = "ProfileScreen",
+  Profile = "ProfilScreen",
   Details = "DetailTodo",
   SignIn ="SignIn",
   SignUp="SignUp",

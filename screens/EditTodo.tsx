@@ -3,18 +3,19 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'reac
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { RootStackParamList ,Screens } from "../types";
+import { RootStackParamList, Screens } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditTodo'>
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, Screens.Edit>
 
 const EditTodo = ({ route }: { route: any }) => {
     const navigation = useNavigation<NavigationProp>();
     const todos = useSelector((state: RootState) => state.todo.todos)
     const dispatch = useDispatch()
     const todoId = route.params?.todoId
+
     const todo = todos.find((t) => t.id === todoId);
     const todoTitle = todo?.title; // Dizinin boş olup olmadığını kontrol et.
     const todoDescription = todo?.description;
@@ -23,6 +24,7 @@ const EditTodo = ({ route }: { route: any }) => {
     const [deadline, setDeadLine] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
     const onChange = (event: any, selectedDate?: Date): void => {
         const currentDate = selectedDate || deadline.toLocaleString();
         setShowPicker(false);  // Picker'ı kapat
@@ -89,17 +91,11 @@ const EditTodo = ({ route }: { route: any }) => {
     )
 }
 const styles = StyleSheet.create({
-    _container: {
+    container: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#FF8A80',
-    },
-    get container() {
-        return this._container;
-    },
-    set container(value) {
-        this._container = value;
     },
     title: {
         fontSize: 24,
@@ -165,6 +161,5 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 })
-
 
 export default EditTodo;
