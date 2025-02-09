@@ -9,8 +9,10 @@ import { setTodos } from "../redux/todoSlice";
 import { RootState } from "../redux/store";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, Screens.Edit>
-
-const EditTodo = ({ route }: { route: any }) => {
+type EditTodoProps = {
+    route: any;
+}
+const EditTodo:React.FC<EditTodoProps> = ({ route }) => {
     const navigation = useNavigation<NavigationProp>();
     const todos = useSelector((state: RootState) => state.todo.todos)
     const dispatch = useDispatch()

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, Screens.Profile>
-const ProfilScreen = () => {
+const ProfilScreen:React.FC = () => {
     const navigation = useNavigation<NavigationProp>();
     const { fullName, email, password } = useSelector((state: RootState) => state.todo)
     const maskPasword = (password: string): string => {

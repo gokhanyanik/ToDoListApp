@@ -14,9 +14,9 @@ import * as Yup from "yup";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
     const navigation = useNavigation<NavigationProp>();
-    const { fullName} = useSelector((state: RootState) => state.todo)
+    const { fullName } = useSelector((state: RootState) => state.todo)
     const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -61,7 +61,7 @@ const SignUp = () => {
                                 Toast.show({
                                     type: "success",
                                     text1: "Kayıt başarılı!"
-                                });                              
+                                });
                                 setEmail("");    // Redux store'u sıfırla (Email ve Password'ü temizle)
                                 setPassword("");
                                 resetForm();         // Form verilerini sıfırla                                     

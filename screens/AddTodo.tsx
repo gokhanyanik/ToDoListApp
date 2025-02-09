@@ -9,7 +9,7 @@ import Toast from "react-native-toast-message";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddTodo'>
 
-const AddTodo = () => {
+const AddTodo :React.FC = () => {
     const navigation = useNavigation<NavigationProp>();
     useEffect(() => {
         const backAction = () => {

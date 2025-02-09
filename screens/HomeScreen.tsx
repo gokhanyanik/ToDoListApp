@@ -10,7 +10,7 @@ import { getTodos } from "../database/database";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;// bu tip tanımlaması aşağıda navigation içerisindeki proplar için
 
-const HomeScreen = () => {
+const HomeScreen:React.FC = () => {
     const navigation = useNavigation<NavigationProp>();
     const { todos } = useSelector((state: RootState) => state.todo)  //redux store dan todos değerine ulaşıyoruz.Burada state.todo daki todo storeda reducer'a verilen ad
     const dispatch = useDispatch();

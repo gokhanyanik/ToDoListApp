@@ -14,7 +14,7 @@ import * as Yup from "yup";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SignIn'>
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
     const navigation = useNavigation<NavigationProp>();
     const { email, password } = useSelector((state: RootState) => state.todo)
     const dispatch = useDispatch()

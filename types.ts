@@ -16,7 +16,7 @@ export type RootStackParamList = {
   SignIn: undefined;
   HomeScreen: undefined;
   AddTodo: undefined;
-  DetailTodo: { todoId: number };
+  DetailTodo: { todoId: number};
   EditTodo: { todoId: number };
   ProfilScreen: undefined;
   ForgotPassword: undefined;

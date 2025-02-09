@@ -7,7 +7,7 @@ import { RootStackParamList, Screens } from "../types";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ForgotPassword'>
 
-const ForgotPassword = () => {
+const ForgotPassword:React.FC = () => {
     const navigation = useNavigation<NavigationProp>();
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
