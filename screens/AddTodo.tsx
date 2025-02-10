@@ -54,14 +54,14 @@ const AddTodo :React.FC = () => {
                 placeholder="Title"
                 placeholderTextColor="white"
                 value={title}
-                onChangeText={(t) => setTitle(t)}
+                onChangeText={(title) => setTitle(title)}
             />
             <TextInput
                 style={styles.descriptionInput}
                 placeholder="Description"
                 placeholderTextColor="white"
                 value={description}
-                onChangeText={(d) => setDescription(d)}
+                onChangeText={(description) => setDescription(description)}
                 textAlignVertical="top"
             />
             <View style={styles.deadlineView}>

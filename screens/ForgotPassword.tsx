@@ -31,7 +31,7 @@ const ForgotPassword:React.FC = () => {
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
                         value={password}
-                        onChangeText={(e) => setPassword(e)}
+                        onChangeText={(password) => setPassword(password)}
                     />
                     <TouchableOpacity style={styles.icon} onPress={togglePasswordVisibility}>
                         <Icon
