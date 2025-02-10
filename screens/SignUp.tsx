@@ -32,6 +32,28 @@ const SignUp: React.FC = () => {
             .min(4, "Sifre en az 4 karakter olmalıdır")
             .required("şifre alanı boş bırakılamaz"),
     });
+    const handleOnSubmit=()=>{
+        async (values: { email: string; password: string; }, { resetForm }: any) => {
+            try {
+                await addUser(values.email, values.password); // Kullanıcıyı veritabanına ekle      
+                // Kullanıcıya başarı mesajı göster
+                Toast.show({
+                    type: "success",
+                    text1: "Kayıt başarılı!"
+                });
+                setEmail("");    // Redux store'u sıfırla (Email ve Password'ü temizle)
+                setPassword("");
+                resetForm();         // Form verilerini sıfırla                                     
+                navigation.replace(Screens.SignIn);   // Giriş ekranına yönlendir
+            } catch (error) {
+                Toast.show({
+                    type: "error",
+                    text1: "Kayıt sırasında hata oluştu",
+                    text2: `Kullanıcı adı ya da şifre hatalı: ${error}`
+                });
+            }
+        }
+    }
 
     return (
         <KeyboardAvoidingView
@@ -54,26 +76,7 @@ const SignUp: React.FC = () => {
                     <Formik
                         initialValues={{ email: "", password: "" }}
                         validationSchema={validationSchema}
-                        onSubmit={async (values, { resetForm }) => {
-                            try {
-                                await addUser(values.email, values.password); // Kullanıcıyı veritabanına ekle      
-                                // Kullanıcıya başarı mesajı göster
-                                Toast.show({
-                                    type: "success",
-                                    text1: "Kayıt başarılı!"
-                                });
-                                setEmail("");    // Redux store'u sıfırla (Email ve Password'ü temizle)
-                                setPassword("");
-                                resetForm();         // Form verilerini sıfırla                                     
-                                navigation.replace(Screens.SignIn);   // Giriş ekranına yönlendir
-                            } catch (error) {
-                                Toast.show({
-                                    type: "error",
-                                    text1: "Kayıt sırasında hata oluştu",
-                                    text2: `Kullanıcı adı ya da şifre hatalı: ${error}`
-                                });
-                            }
-                        }}
+                        onSubmit={handleOnSubmit}
                     >
                         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                             <View style={styles.container}>

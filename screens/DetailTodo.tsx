@@ -36,7 +36,7 @@ const DetailTodo:React.FC<DetailTodoProps>= ({ route }) => {
                 >
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/solok.png')}
+                        source={require('../assets/images/backSpace.png')}
                         style={styles.solokImage}
                     />
                 </TouchableOpacity>
@@ -47,20 +47,20 @@ const DetailTodo:React.FC<DetailTodoProps>= ({ route }) => {
                         <TouchableOpacity>
                             <Image
                                 // eslint-disable-next-line @typescript-eslint/no-require-imports
-                                source={require('../assets/images/saat.png')}
+                                source={require('../assets/images/timer.png')}
                                 style={styles.deadlineImage}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => navigation.navigate(Screens.Edit, { todoId })}>
                             <Image
-                                source={require('../assets/images/düzenle.png')}
+                                source={require('../assets/images/edit.png')}
                                 style={styles.editImage}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => handleDeleteTodo(todoId!)}>
                             <Image
-                                source={require('../assets/images/copkutusu.png')}
+                                source={require('../assets/images/bin.png')}
                                 style={styles.deleteImage}
                             />
                         </TouchableOpacity>

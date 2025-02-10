@@ -35,14 +35,14 @@ const HomeScreen:React.FC = () => {
                 <TouchableOpacity style={styles.touchableStyle} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/todolistProfilScreen.png')}
+                        source={require('../assets/images/todolistIcon.png')}
                         style={styles.todolistIkonImage}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.touchableStyle} onPress={() => navigation.navigate('ProfilScreen')}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/ayarlarIkonProfilScreen.png')}
+                        source={require('../assets/images/settingsIcon.png')}
                         style={styles.optionIkonImage}
                     />
                 </TouchableOpacity>
@@ -56,14 +56,14 @@ const HomeScreen:React.FC = () => {
                     />
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/listof1.png')}
+                        source={require('../assets/images/listofIcon.png')}
                         style={styles.listofImage}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.touchableStyle} onPress={() => console.log("ayarlarIkonProfilScreen")} disabled={todos.length > 1 ? false : true}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/filtre.png')}
+                        source={require('../assets/images/filter.png')}
                         style={styles.filtreImage}
                     />
                 </TouchableOpacity>
@@ -90,7 +90,7 @@ const HomeScreen:React.FC = () => {
             >
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../assets/images/ekle.png')}
+                    source={require('../assets/images/add.png')}
                     style={styles.ekleImage}
                 />
             </TouchableOpacity>

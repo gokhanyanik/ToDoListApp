@@ -29,6 +29,27 @@ const SignIn: React.FC = () => {
             .min(4, "Sifre en az 4 karakter olmalıdır")
             .required("şifre alanı boş bırakılamaz"),
     });
+    const handleOnSubmit=()=>{
+        async (values: { email: string; password: string; }, { resetForm }: any) => {
+            try {
+                const isValidUser = await validateUser(email, password);
+                if (isValidUser) {
+                    navigation.replace(Screens.Home); // HomeScreen'e yönlendir
+                } else {
+                    Toast.show({
+                        type: "error",
+                        text1: "Giriş Hatası : E-posta veya şifre yanlış."
+                    })
+                }
+            } catch (error) {
+                Toast.show({
+                    type: "error",
+                    text1: "Giriş sırasında hata olustu..."
+                })
+            }
+            resetForm()
+        }
+    }
 
     return (
         <KeyboardAvoidingView
@@ -43,25 +64,7 @@ const SignIn: React.FC = () => {
                 <Formik
                     initialValues={{ email: "", password: "" }}
                     validationSchema={validationSchema}
-                    onSubmit={async (values, { resetForm }) => {
-                        try {
-                            const isValidUser = await validateUser(email, password);
-                            if (isValidUser) {
-                                navigation.replace(Screens.Home); // HomeScreen'e yönlendir
-                            } else {
-                                Toast.show({
-                                    type: "error",
-                                    text1: "Giriş Hatası : E-posta veya şifre yanlış."
-                                })
-                            }
-                        } catch (error) {
-                            Toast.show({
-                                type: "error",
-                                text1: "Giriş sırasında hata olustu..."
-                            })
-                        }
-                        resetForm()
-                    }}
+                    onSubmit={handleOnSubmit}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                         <View style={styles.main}>

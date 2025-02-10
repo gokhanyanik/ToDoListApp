@@ -19,14 +19,14 @@ const ProfilScreen:React.FC = () => {
                 <TouchableOpacity style={styles.optionTouchable} onPress={() => console.log("todolistProfilScreen")}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/todolistProfilScreen.png')}
+                        source={require('../assets/images/todolistIcon.png')}
                         style={styles.todolistImage}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionTouchable} onPress={() => console.log("ayarlarIkonProfilScreen")}>
                     <Image
                         // eslint-disable-next-line @typescript-eslint/no-require-imports
-                        source={require('../assets/images/ayarlarIkonProfilScreen.png')}
+                        source={require('../assets/images/settingsIcon.png')}
                         style={styles.optionIkonImage}
                     />
                 </TouchableOpacity>
@@ -34,7 +34,7 @@ const ProfilScreen:React.FC = () => {
             <View style={styles.containerSecond}>
                 <Image
                     // eslint-disable-next-line @typescript-eslint/no-require-imports
-                    source={require('../assets/images/ProfilScreen.png')}
+                    source={require('../assets/images/profilScreen.png')}
                     style={styles.profilscreenImage}
                 />
             </View>
